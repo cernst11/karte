@@ -82,9 +82,9 @@ export default class CanvasClass {
      * Save blob export
      * @param {*} filename the file name to save it as 
      */
-    async exportMap(filename = 'map.png' ){
+    async exportMap(){
         let canvasBlob = await this.exportImageBlob(this.canvas);
-        FileSaver.saveAs(canvasBlob, filename );
+        FileSaver.saveAs(canvasBlob, 'map.png' );
     }
 
     /**
@@ -92,18 +92,18 @@ export default class CanvasClass {
      * @param {*} width 
      * @param {*} height 
      */
-    exportOverlayCanvas(width = 1800, height= 2400) {
+    exportOverlayCanvas() {
         let newDiv = this._createTempDiv();
         html2canvas(newDiv, {
             onrendered(canvas) {
                 canvas.toBlob(blob => {
-                    FileSaver.saveAs(blob, "screenshot.png");
+                    FileSaver.saveAs(blob, "overlay.png");
                     newDiv.parentNode.removeChild(newDiv);
                 }, "image/png");
 
             },
-            width: width,
-            height: height,
+            width: 1800,
+            height: 2400,
             letterRendering: true
         });
     }
