@@ -30,12 +30,11 @@ let canvasClass;
 
 
 let  locationLookupCallback = function() {
-
     let textOverlay  = new TextOverlay;
     console.log(keys().mapBox );
     let locationLookup = new LocationLookup(textOverlay, keys().mapBox );
-    
     locationLookup.locationLookupLoaded();
+    let canvasClass = new CanvasClass(1800, 2400);
 }
 
 window.Buffer = null;
@@ -51,6 +50,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let googlePlacesKey = keys().googlePlaces;
     script.src = `https://maps.googleapis.com/maps/api/js?key=${googlePlacesKey}&libraries=places&callback=locationLookupCallback`;
     document.getElementsByTagName('head')[0].appendChild(script);
-    let  canvasClass = new CanvasClass(1800, 2400);
+    
     
 });
