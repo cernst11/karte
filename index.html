@@ -1,0 +1,105 @@
+<!doctype html>
+
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Karte </title>
+    <meta name="description" content="Karte">
+    <meta name="author" content="cernst">
+    <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.js'></script> -->
+  
+
+
+</head>
+
+<body>
+    <main>
+        <div class="wrapper">
+            <section class="preview">
+                <div class="mapArea">
+                    <div class="mapAreaCenter">
+                        <div class="poster">
+                            <div id="map-overlay" class="mapOverlayCenter map-overlay" style='width: 1800px; height: 2400px; ;'>
+
+                                <div class="text-container">
+                                    <div class="text-filler">
+
+                                    </div>
+                                    <div class="text-overlay">
+                                        <div class="text-wrapper">
+                                            <span class="city-overlay">Berlin</span>
+                                            <span class="country-overlay">Germany</span>
+                                            <span class="coord-overlay">52.5200° N / 13.4050° E</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="map" class="map" style='width: 1800px; height: 2400px; ;'>
+                            </div>
+
+
+                        </div>
+                    </div>
+            </section>
+            <div class='configure'>
+
+                <div class="topnav">
+                    <a href="#home">Karte</a>
+                </div>
+
+                <div class="controls">
+                    <div class="group">
+                        <input id="pac-input" type="text" placeholder="" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Enter a location</label>
+                    </div>
+                    <div class="group">
+                        <input id="dpi" type="number" placeholder="" value="300" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>DPI</label>
+                    </div>
+                    <div class="group">
+                        <input id="city" placeholder="" value="Berlin" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>City Name</label>
+                    </div>
+                    <div class="group">
+                            <input id="country" placeholder="" value="Germany" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Country Name</label>
+                    </div>
+                    <div class="group">
+                            <input id="location" placeholder="" value="52.5200° N / 13.4050° E" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Location Coordinates</label>
+                    </div>
+                    <button class="map-export export-button " > Export Map</button>
+                    <button class="overlay-export export-button" > Export Overlay</button>
+                    <button class="export-button comp-image" > Export Composite!</button>
+
+                </div>
+            </div>
+            </div>
+    </main>
+    <!--<img id="map-image" src="" style='width: 1800px; height: 2400px'> </img>-->
+</body>
+
+
+<script>
+
+
+
+</script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.css' rel='stylesheet' />
+<!-- <script defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAi7zSiDNeJH4D74HnmLeo8otURsh2ty9s&libraries=places&callback=window.locationLookupCallback"></script> -->
+
+
+</html>

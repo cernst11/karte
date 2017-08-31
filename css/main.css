@@ -1,0 +1,161 @@
+:root {
+    --primary-color: #9C27B0;
+    --dark-primary-color: #7B1FA2;
+    --accent-color: #00BCD4;
+    --map-hieght: 2400px;
+    --map-width: 1800px;
+    --scale-ratio: 0.30;
+}
+
+.map {
+    width: var(--map-width);
+    height: var(--map-height);
+    transform: scale(var(--scale-ratio));
+}
+
+.map-overlay {
+    margin: 0 auto;
+    box-flex: 1;
+    flex: 1;
+    text-align: left;
+    overflow: visible;
+    z-index: 1;
+    pointer-events: none;
+    /* border: white;
+    border-width: 50px;
+    border-style: solid;  */
+    text-align: center;
+}
+
+
+.mapOverlayCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) scale(var(--scale-ratio))!important;
+}
+
+.mapAreaCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.mapArea {
+    margin: 0 auto;
+    box-flex: 1;
+    flex: 1;
+    text-align: left;
+    overflow: visible;
+}
+
+/* Postition map */
+ .preview {
+    background: #f2f2f2;
+    padding: 22px 50px 29px 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 460px;
+    bottom: 0;
+    display: box;
+    display: flex;
+    padding: 1em;
+    padding-top: 3em;
+    padding-bottom: 6em;
+    overflow: hidden;
+} 
+
+.wrapper .configure {
+    width: 460px;
+    height: 100vh;
+    float: right;
+    background: #fff;
+    position: relative;
+}
+
+.topnav {
+    margin-bottom: 30px;
+}
+
+main,
+menu,
+nav,
+section,
+summary {
+    display: block;
+}
+
+.pac-controls {
+    display: inline-block;
+}
+
+.pac-controls label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+#pac-input {
+    font-family: Roboto;
+    text-overflow: ellipsis;
+}
+
+.navbar-fixed-top {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 999;
+    background: #9C27B0;
+}
+
+body {
+    margin: 0;
+}
+
+
+/* Add a black background color to the top navigation */
+
+.topnav {
+    background-color: var(--primary-color);
+    overflow: hidden;
+}
+
+
+/* Style the links inside the navigation bar */
+
+.topnav a {
+    font-family: Roboto;
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+
+/* Change the color of links on hover */
+
+.topnav a:hover {
+    background-color: var(--accent-color);
+    color: black;
+}
+
+.export-button{
+   
+    background-color: var(--accent-color);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+
