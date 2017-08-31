@@ -85,6 +85,25 @@ Start a development server with on localhost:8080
 yarn start 
 ```
 
+
+Open `Chrome` and naviagte to localhost:8080 or wherever webpack indicated in the console output 
+
+There are 3 options for export.
+
+* `Map` - Just export the map
+* `Overlay` - Just export the overlay
+* `Composite` - Export both as a merged image
+
+Using the top most text box you can search for a city. On enter/select the map on the left will navigate and enter the center coordinates in the Location Coordinates field on the right.
+
+You can edit any three of the fields using the text boxes before exporting the overlay or composite. 
+
+
+## TODO
+
+* Switchable map themes
+
+
 ## Built With
 
 * [yarn](https://yarnpkg.com/en/) - Dependency Management
