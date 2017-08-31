@@ -49,8 +49,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     script.type = 'text/javascript';
     script.async = true;
     let googlePlacesKey = keys().googlePlaces;
-    //script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAi7zSiDNeJH4D74HnmLeo8otURsh2ty9s&libraries=places&callback=window.locationLookupCallback'
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${googlePlacesKey}=places&callback=window.locationLookupCallback`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${googlePlacesKey}&libraries=places&callback=locationLookupCallback`;
+    document.getElementsByTagName('head')[0].appendChild(script);
     let  canvasClass = new CanvasClass(1800, 2400);
     
 });
