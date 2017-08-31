@@ -92,7 +92,7 @@ yarn start
 
 ## Authors
 
-* **Christian Ernst** - *Initial work* - [PurpleBooth](https://github.com/cernst11)
+* **Christian Ernst** - *Initial work* - [cernst11](https://github.com/cernst11)
 
 
 ## License
