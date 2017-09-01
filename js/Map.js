@@ -7,6 +7,15 @@ export default class Map{
         this.mapBoxKey = mapBoxKey;
         this.style = 'mapbox://styles/cernst11/cj28e31au00072tpeqo01n9gf';
         this.buildMap();
+
+        this.styleChange = document.querySelector('.change-style');
+        this.changeStyle = this.changeStyle.bind(this);
+
+        this.addEventListeners();
+    }
+
+    addEventListeners() {
+        this.styleChange.addEventListener('click', this.changeStyle);
     }
 
     buildMap(){
@@ -22,6 +31,10 @@ export default class Map{
         map.addControl(new mapboxgl.NavigationControl());
     }
 
+    changeStyle(style){
+        console.log('Style')
+        this.map.setStyle('https://openmaptiles.github.io/dark-matter-gl-style/style-cdn.json');
 
+    }
 
 }
