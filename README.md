@@ -2,6 +2,10 @@
 
 Karte is a single page application to generate print size map art using the mapBox api
 
+## Screenshots
+
+![ScreenShot](./screenshots/berlin-simple.png?raw=true "Berlin Simple Map");
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
