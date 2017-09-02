@@ -14,12 +14,22 @@ export default class Styles {
             {
                 name: 'Moonlight',
                 url: 'mapbox://styles/cernst11/cj717woq90grv2smxyxv1bqxi',
-                author: 'cernst'
+                author: 'cernst',
+                overlay:{
+                    textColor : '#FFFFFF',
+                    decorationColor : '#FFFFFF',
+                    gradientColor: '#000000'
+                }
             }, 
             {
                 name: 'Dark',
                 url: 'https://openmaptiles.github.io/dark-matter-gl-style/style-cdn.json',
-                author: ''
+                author: '', 
+                overlay:{
+                    textColor : '#FFFFFF',
+                    decorationColor : '#FFFFFF',
+                    gradientColor: '#000000'
+                }
             }
 
         ]

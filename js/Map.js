@@ -43,8 +43,9 @@ export default class Map{
      * @param {event} style - the event that contains the style event
      */
     setStyle(style){
-        const newStyleUrl = this.styles.getStyleByName(style.target.value)[0].url;
-        this.map.setStyle(newStyleUrl);
+        const newStyle = this.styles.getStyleByName(style.target.value)[0];
+        this.map.setStyle(newStyle.url);
+        this.setOverlayStyle(newStyle.overlay);
     }
 
     /**
@@ -56,6 +57,14 @@ export default class Map{
         const option = `${styles.map(style => `<option value='${style.name}'>${style.name}</option>`)}`;
         this.styleSelector.innerHTML = option;
         this.styleSelector.onchange=this.setStyle;
+    }
+
+    setOverlayStyle(style){
+        //get the root html to modify the css vars
+        let html = document.getElementsByTagName('html')[0];
+        html.style.setProperty('--overlay-font-color' , style.textColor);
+        html.style.setProperty('--overlay-gradeint-color' , style.gradientColor);
+
     }
 
 }

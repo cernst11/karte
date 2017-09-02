@@ -13,6 +13,19 @@
     transform: scale(var(--scale-ratio));
 }
 
+
+/* Add a color to the active/current link */
+
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.controls {
+    padding-left: 20px;
+}
+
+
 .map-overlay {
     margin: 0 auto;
     box-flex: 1;

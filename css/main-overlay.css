@@ -4,6 +4,10 @@
     --country-overlay-font: Montserrat, sans-serif;
     --city-overlay-font:  Montserrat, sans-serif;
     --location-overlay-font: Montserrat, sans-serif;
+    --overlay-font-color: black;
+    --overlay-gradeint-color: white;
+    --overlay-gradient-base-color: rgba(255,255,255,0);
+    --text-overlay-height: .25;
 }
 
 
@@ -11,16 +15,7 @@
     margin-bottom: 5%;
 }
 
-/* Add a color to the active/current link */
 
-.topnav a.active {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.controls {
-    padding-left: 20px;
-}
 
 .text-container {
     display: flex;
@@ -31,13 +26,13 @@
 /* Fill the top portion of the container with an empty div */
 .text-filler {
     order: 0;
-    flex: var(--fill-height) var(--fill-height) auto;
+    flex: calc(1 - var(--text-overlay-height)) calc(1 - var(--text-overlay-height)) auto;
 }
 
 .text-overlay {
-    flex: .25 1 auto;
+    flex: var(--text-overlay-height) 1 auto;
     order: 1;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 35%, #fff 35%)!important;
+    background: linear-gradient(to bottom, var(--overlay-gradient-base-color) 0, var(--overlay-gradeint-color) 35%, var(--overlay-gradeint-color) 35%)!important;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,6 +51,7 @@
     display: block;
     letter-spacing: .2em;
     text-indent: .2em;
+    color: var(--overlay-font-color);
 }
 
 .country-overlay {
@@ -73,6 +69,7 @@
     text-transform: uppercase;
     line-height: 1;
     margin-bottom: 5%;
+    color: var(--overlay-font-color);
 }
 
 .country-overlay:after {
@@ -83,6 +80,7 @@
     top: 50px;
     border-top: 5px solid #000;
     right: var(--country-orimental-pos);
+    color: var(--overlay-font-color);
 }
 
 .country-overlay:before {
@@ -93,6 +91,7 @@
     border-top: 5px solid #000;
     top: 50px;
     left: var(--country-orimental-pos);
+    color: var(--overlay-font-color);
 }
 
 .coord-overlay {
@@ -107,4 +106,5 @@
     text-transform: uppercase;
     letter-spacing: .1em;
     color: #A3A3A3;
+    color: var(--overlay-font-color);
 }
