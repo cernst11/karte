@@ -168,3 +168,51 @@ body {
     font-family: Roboto;
 }
 
+
+/*Selector*/
+
+
+select {
+    font-family: inherit;
+    background-color: transparent;
+    width: 100%;
+    padding: 4px 0;
+    font-size: 16px;
+    color: rgba(0,0,0, 0.26);
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0, 0.12);
+  }
+  
+  /* Remove focus */
+  select:focus {
+    outline: none;
+  }
+  
+  
+  /* Remove deafult arrow */
+  .style-selector-container select {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+  }
+  
+  .style-selector-container {
+    font-family: 'Roboto',sans-serif;
+    position: relative;
+    width: 90%;
+    margin-top: 20px;
+  }
+  .style-selector-container:after {
+    position: absolute;
+    top: 0.75em;
+    right: 0.5em;
+    width: 0;
+    height: 0;
+    padding: 0;
+    content: '';
+    border-left: .25em solid transparent;
+    border-right: .25em solid transparent;
+    border-top: 0.375em solid rgba(0,0,0, 0.12);
+    pointer-events: none;
+  }
+  

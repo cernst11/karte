@@ -4,6 +4,7 @@ import LocationLookup from './LocationLookup';
 import Map from './Map.js';
 import TextOverlay from './TextOverlay';
 import keys from './keys';
+import Styles from './Styles';
 
 import html2canvas  from 'html2canvas';
 import mapboxgl from 'mapbox-gl';
@@ -25,8 +26,6 @@ function updateDPI(dpi = 300) {
 
 updateDPI();
 
-let locationLookup;
-let canvasClass;
 let map = new Map(keys().mapBox)
 
 

@@ -1,11 +1,7 @@
-export class Styles {
-    constructor(mapBox) {
-        this.styles = this.getStyles();
-        this.mapBox = mapBox;
-
-
-
-
+export default class Styles {
+    constructor() {
+    
+            console.log("Styles");
     }
 
     getStyles() {
@@ -19,6 +15,11 @@ export class Styles {
                 name: 'Moonlight',
                 url: 'mapbox://styles/cernst11/cj717woq90grv2smxyxv1bqxi',
                 author: 'cernst'
+            }, 
+            {
+                name: 'Dark',
+                url: 'https://openmaptiles.github.io/dark-matter-gl-style/style-cdn.json',
+                author: ''
             }
 
         ]
@@ -26,16 +27,14 @@ export class Styles {
     }
 
     getStyleByName(name){
-        return this.styles.filter(style => style[name]);
+        let r = this.getStyles().filter(style => style.name === name);
+        console.log(r);
+        return r;
     }
 
     getStyleByType(){
 
 
-    }
-
-    setStyle(style){
-        this.mapBox.changeStyle(style);
     }
 
 }
