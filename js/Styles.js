@@ -27,9 +27,7 @@ export default class Styles {
     }
 
     getStyleByName(name){
-        let r = this.getStyles().filter(style => style.name === name);
-        console.log(r);
-        return r;
+        return this.getStyles().filter(style => style.name === name);
     }
 
     getStyleByType(){
