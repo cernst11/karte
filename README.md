@@ -4,7 +4,7 @@ Karte is a single page application to generate print size map art using the mapB
 
 ## Screenshots
 
-![ScreenShot](./screenshots/berlin-simple.png?raw=true "Berlin Simple Map");
+![ScreenShot](./screenshots/berlin-simple.png?raw=true "Berlin Simple Map")
 
 ## Getting Started
 
