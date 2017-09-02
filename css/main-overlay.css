@@ -78,7 +78,7 @@
     width: 3em;
     position: absolute;
     top: 50px;
-    border-top: 5px solid #000;
+    border-top: 5px solid var(--overlay-font-color);
     right: var(--country-ornamental-pos);
     color: var(--overlay-font-color);
 }
@@ -88,10 +88,10 @@
     display: block;
     width: 3em;
     position: absolute;
-    border-top: 5px solid #000;
+    border-top: 5px solid var(--overlay-font-color);
     top: 50px;
     left: var(--country-ornamental-pos);
-    color: var(--overlay-font-color);
+     
 }
 
 .coord-overlay {
