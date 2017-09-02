@@ -60,14 +60,6 @@ export default class CanvasClass {
         });
     }
 
-    setWindowDPI(dpi = 300) {
-        Object.defineProperty(window, 'devicePixelRatio', {
-            get: function () {
-                return dpi / 96
-            }
-        });
-    }
-
     /**
      * Export a canvas as a png
      * @param {HtmlElement} canvas The canvas element to export
@@ -132,10 +124,10 @@ export default class CanvasClass {
 
     /**
      * Composite the two files into a canvas and export the resulting composite 
-     * @param {$} map The ma
-     * @param {*} overlay 
-     * @param {*} width 
-     * @param {*} height 
+     * @param {$} map The map to export
+     * @param {*} overlay The overlay to export
+     * @param {*} width The width of the canvas
+     * @param {*} height The height of the canvas
      */
     async createCompositeCanvas(map, overlay, width = 5625, height = 7500, ) {
         try{
@@ -150,6 +142,7 @@ export default class CanvasClass {
             var overlayImg = new window.Image();
             mapImg.addEventListener('load', function () {
                 canvas.getContext('2d').drawImage(mapImg, 0, 0);
+                //scale the overlay to match the map 
                 canvas.getContext('2d').drawImage(overlayImg, 0, 0,
                     overlayImg.width,
                     overlayImg.height, 
@@ -166,8 +159,16 @@ export default class CanvasClass {
             return {completed: true, errors: null};
 
         }catch(e){
-            return {completed: false, erros: e};
+            return {completed: false, errors: e};
         }
+    }
+
+    setWindowDPI(dpi = 300) {
+        Object.defineProperty(window, 'devicePixelRatio', {
+            get: function () {
+                return dpi / 96
+            }
+        });
     }
 
 }
