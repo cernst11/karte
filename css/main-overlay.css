@@ -1,6 +1,6 @@
 :root{
     --fill-height: .75;
-    --country-orimental-pos: 106%;
+    --country-ornamental-pos: 106%;
     --country-overlay-font: Montserrat, sans-serif;
     --city-overlay-font:  Montserrat, sans-serif;
     --location-overlay-font: Montserrat, sans-serif;
@@ -79,7 +79,7 @@
     position: absolute;
     top: 50px;
     border-top: 5px solid #000;
-    right: var(--country-orimental-pos);
+    right: var(--country-ornamental-pos);
     color: var(--overlay-font-color);
 }
 
@@ -90,7 +90,7 @@
     position: absolute;
     border-top: 5px solid #000;
     top: 50px;
-    left: var(--country-orimental-pos);
+    left: var(--country-ornamental-pos);
     color: var(--overlay-font-color);
 }
 
