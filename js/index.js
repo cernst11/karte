@@ -16,7 +16,6 @@ import '../css/main.css';
 import '../css/main-overlay.css';
 
 function updateDPI(dpi = 300) {
-    console.log('stuff');
     Object.defineProperty(window, 'devicePixelRatio', {
         get: function () {
             return dpi / 96

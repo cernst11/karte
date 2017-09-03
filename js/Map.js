@@ -13,6 +13,10 @@ export default class Map{
         this.styles = new Styles;
         this.style = 'mapbox://styles/cernst11/cj28e31au00072tpeqo01n9gf';
 
+
+        this.textColorPicker = document.querySelector('.text-color');
+
+        this.setTextColor = this.setTextColor.bind(this);
         this.setStyle = this.setStyle.bind(this);
         
         //create the style selectors and build the map
@@ -22,6 +26,7 @@ export default class Map{
     }
 
     addEventListeners() {
+        this.textColorPicker.addEventListener("change", this.setTextColor, false);
         
     }
 
@@ -61,10 +66,16 @@ export default class Map{
 
     setOverlayStyle(style){
         //get the root html to modify the css vars
-        let html = document.getElementsByTagName('html')[0];
-        html.style.setProperty('--overlay-font-color' , style.textColor);
-        html.style.setProperty('--overlay-gradeint-color' , style.gradientColor);
+        let html = document.getElementsByTagName('html')[0];       
+        html.style.setProperty('--overlay-font-color' , style.textColor || '#FFFFFF');
+        html.style.setProperty('--country-ornamental-color' , style.ornamentalColor || '#FFFFFF');
+        html.style.setProperty('--overlay-gradeint-color' , style.gradientColor);      
+    }
 
+    setTextColor(e){
+        let color = e.target.value;
+        let html = document.getElementsByTagName('html')[0];  
+        html.style.setProperty('--overlay-font-color' , color || '#FFFFFF');
     }
 
 }

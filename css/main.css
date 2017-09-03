@@ -7,6 +7,12 @@
     --scale-ratio: 0.30;
 }
 
+html *
+{
+    font-family: Roboto;
+    font-size: 17px;
+}
+
 .map {
     width: var(--map-width);
     height: var(--map-height);
@@ -228,4 +234,29 @@ select {
     border-top: 0.375em solid rgba(0,0,0, 0.12);
     pointer-events: none;
   }
+
+  .overlay-controls{
+      margin-top: 20px;
+      
+  }
+
+  .overlay-controls span {
+      padding-right: 10px;
+
+  }
+
+  input[type="color"] {
+    -webkit-appearance: none;
+    display: inline-block;
+	border: none;
+	width: 17px;
+    height: 17px;
+    padding: 0px;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+}
   
