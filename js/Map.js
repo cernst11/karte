@@ -12,12 +12,18 @@ export default class Map{
         this.mapBoxKey = mapBoxKey;
         this.styles = new Styles;
         this.style = 'mapbox://styles/cernst11/cj28e31au00072tpeqo01n9gf';
+        this.html = document.getElementsByTagName('html')[0];  
 
+        //get elements
+        this.textColorPicker = document.querySelector('.text-color-picker');
+        this.ornamentalColorPicker = document.querySelector('.ornamental-color-picker');
+        
 
-        this.textColorPicker = document.querySelector('.text-color');
-
+        //bind 
         this.setTextColor = this.setTextColor.bind(this);
         this.setStyle = this.setStyle.bind(this);
+        this.setOrnamentalColor = this.setOrnamentalColor.bind(this);
+        this.setGradientColor = this.setGradientColor.bind(this);
         
         //create the style selectors and build the map
         this.buildMap();
@@ -27,7 +33,7 @@ export default class Map{
 
     addEventListeners() {
         this.textColorPicker.addEventListener("change", this.setTextColor, false);
-        
+        this.ornamentalColorPicker.addEventListener("change" , this.setOrnamentalColor, false);
     }
 
     buildMap(){
@@ -65,17 +71,27 @@ export default class Map{
     }
 
     setOverlayStyle(style){
-        //get the root html to modify the css vars
-        let html = document.getElementsByTagName('html')[0];       
-        html.style.setProperty('--overlay-font-color' , style.textColor || '#FFFFFF');
-        html.style.setProperty('--country-ornamental-color' , style.ornamentalColor || '#FFFFFF');
-        html.style.setProperty('--overlay-gradeint-color' , style.gradientColor);      
+        //get the root html to modify the css vars   
+        this.html.style.setProperty('--overlay-font-color' , style.textColor || '#FFFFFF');
+        this.html.style.setProperty('--country-ornamental-color' , style.ornamentalColor || '#FFFFFF');
+        this.html.style.setProperty('--overlay-gradeint-color' , style.gradientColor);      
     }
 
     setTextColor(e){
         let color = e.target.value;
-        let html = document.getElementsByTagName('html')[0];  
-        html.style.setProperty('--overlay-font-color' , color || '#FFFFFF');
+        this.html.style.setProperty('--overlay-font-color' , color || '#FFFFFF');
     }
+    setGradientColor(e){
+        let color = e.target.value;
+        this.html.style.setProperty('--overlay-font-color' , color || '#FFFFFF');
+
+    }
+
+    setOrnamentalColor(e){
+        let color = e.target.value;
+        this.html.style.setProperty('--country-ornamental-color' , color || '#FFFFFF');
+
+    }
+
 
 }
