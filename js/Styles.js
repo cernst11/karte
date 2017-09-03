@@ -1,3 +1,6 @@
+/**
+ * Class to get map and overlay styles attached to diffrent map styles
+ */
 export default class Styles {
     constructor() {
     
@@ -55,18 +58,18 @@ export default class Styles {
                     ornamentalColor : '#000000',
                     gradientColor: '#FFFFFF'
                 }
-            },
-            
-            {
-                name: 'Vinatge',          
-                url: 'mapbox://styles/mslee/cif5p01n202nisaktvljx9mv3',
-                author: 'Open Map Tiles', 
-                overlay:{
-                    textColor : '#FF0000',
-                    ornamentalColor : '#FF0000',
-                    gradientColor: '#000000'
-                }
             }
+
+            // {
+            //     name: 'Vinatge',          
+            //     url: 'mapbox://styles/mslee/cif5p01n202nisaktvljx9mv3',
+            //     author: 'Open Map Tiles', 
+            //     overlay:{
+            //         textColor : '#FF0000',
+            //         ornamentalColor : '#FF0000',
+            //         gradientColor: '#000000'
+            //     }
+            // }
 
         ]
 
