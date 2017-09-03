@@ -22,10 +22,8 @@ export default class LocationLookup {
             types: ['(cities)']
         };
         let autoComplete = new google.maps.places.Autocomplete(addressField, options);
-        console.log(this.autoComplete);
         let that = this;
         autoComplete.addListener('place_changed', () => {
-            console.log(autoComplete);
             that.textOverlay.location = this.textOverlay.formatCoord(autoComplete.getPlace().geometry.location.lat(),
                 autoComplete.getPlace().geometry.location.lng())
             that.mapBox.map.setCenter([autoComplete.getPlace().geometry.location.lng(),
