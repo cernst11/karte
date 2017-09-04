@@ -1,5 +1,5 @@
 import CanvasClass from './CanvasClass';
-import TextOverlay from './TextOverlay';
+import PosterStyling from './PosterStyling';
 import mapboxgl from 'mapbox-gl';
 
 /**

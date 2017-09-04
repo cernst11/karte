@@ -3,8 +3,6 @@
  */
 export default class Styles {
     constructor() {
-    
-            console.log("Styles");
     }
 
     getStyles() {
@@ -44,9 +42,9 @@ export default class Styles {
                 url: 'https://openmaptiles.github.io/toner-gl-style/style-cdn.json',
                 author: 'Open Map Tiles', 
                 overlay:{
-                    textColor : '#FFFFFF',
-                    ornamentalColor : '#FFFFFF',
-                    gradientColor: '#000000'
+                    textColor : '#000000',
+                    ornamentalColor : '#000000',
+                    gradientColor: '#FFFFFF'
                 }
             },
             {
