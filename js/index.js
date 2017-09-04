@@ -5,6 +5,14 @@ import Map from './Map.js';
 import TextOverlay from './TextOverlay';
 import keys from './keys';
 import Styles from './Styles';
+require('./manifest.json');
+require('../images/manifest/icon-512x512.png');
+require('../images/manifest/icon-192x192.png');
+require('../images/manifest/icon-144x144.png');
+require('../images/manifest/icon-96x96.png');
+require('../images/manifest/icon-72x72.png');
+require('../images/manifest/icon-48x48.png');
+
 
 import html2canvas  from 'html2canvas';
 import mapboxgl from 'mapbox-gl';
