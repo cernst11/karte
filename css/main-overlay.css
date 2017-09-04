@@ -5,7 +5,7 @@
     --city-overlay-font:  Montserrat, sans-serif;
     --location-overlay-font: Montserrat, sans-serif;
     --overlay-font-color: black;
-    --overlay-gradeint-color: white;
+    --overlay-gradient-color: white;
     --overlay-gradient-base-color: rgba(255,255,255,0);
     --text-overlay-height: .25;
 }
@@ -32,7 +32,7 @@
 .text-overlay {
     flex: var(--text-overlay-height) 1 auto;
     order: 1;
-    background: linear-gradient(to bottom, var(--overlay-gradient-base-color) 0, var(--overlay-gradeint-color) 35%, var(--overlay-gradeint-color) 35%)!important;
+    background: linear-gradient(to bottom, var(--overlay-gradient-base-color) 0, var(--overlay-gradient-color) 35%, var(--overlay-gradient-color) 35%)!important;
     display: flex;
     flex-direction: column;
     align-items: center;
