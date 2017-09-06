@@ -102,10 +102,40 @@ Using the top most text box you can search for a city. On enter/select the map o
 
 You can edit any three of the fields using the text boxes before exporting the overlay or composite. 
 
+## Themes/Styles
+
+Map and overlay styles are both configurable. Currently map themes are hardcoded into the Styles.js and are set up as follows
+
+```javascript
+{
+    name: 'Simpler',
+    url: 'mapbox://styles/cernst11/cj28e31au00072tpeqo01n9gf',
+    author: 'MapBox',
+    overlay:{
+        textColor : '#000000',
+        ornamentalColor : '#000000',
+        gradientColor: '#FFFFFF'
+    }
+}
+```
+
+name: The name of the theme this - must be unique and no spaces
+
+url: specifies the path to the `mapBox` or `Maputnik` theme url.
+
+author: The author/creator of the style
+
+overlay: Specifies the styling for the overlay
+
+textColor: What color the text should be
+
+ornamentalColor: The color of the ornaments next to country
+
+gradientColor: The color of the gradient
 
 ## TODO
 
-* Switchable map themes
+* Add more themes
 
 
 ## Built With
