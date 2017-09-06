@@ -38,16 +38,6 @@ export default class Styles {
                 }
             }, 
             {
-                name: 'Simpler',
-                url: 'https://cdn.rawgit.com/anonymous/236b7e94f96d1832f3012eb69971ad7b/raw/2c7df54ca7a1e3a5883235abc9e370be9a84ecd3/style.json',
-                author: 'cernst',
-                overlay:{
-                    textColor : '#000000',
-                    ornamentalColor : '#000000',
-                    gradientColor: '#FFFFFF'
-                }
-            }, 
-            {
                 name: 'Dark-Matter',
                 url: 'https://openmaptiles.github.io/dark-matter-gl-style/style-cdn.json',
                 author: 'Open Map Tiles', 
