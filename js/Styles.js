@@ -83,6 +83,10 @@ export default class Styles {
 
     }
 
+    /**
+     * Get a style by its name
+     * @param {string} name 
+     */
     getStyleByName(name){
         return this.getStyles().filter(style => style.name === name);
     }

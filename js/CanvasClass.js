@@ -6,6 +6,11 @@ import html2canvas from 'html2canvas';
  */
 export default class CanvasClass {
 
+    /**
+     * Construct the data object and methods for the canvas class 
+     * @param {number} width The width of the canvas
+     * @param {number} height The height of the canvas
+     */
     constructor(width, height) {
         this.height = height;
         this.width = width;
@@ -30,17 +35,26 @@ export default class CanvasClass {
         this.compImageExport.addEventListener('click', this.generateImageComposite);
     }
 
+    /**
+     * Helper function to get the mapBox canvas. mapBox applies a style to the canvas
+     */
     getCanvas() {
         let canvasList = document.getElementsByClassName("mapboxgl-canvas");
         return canvasList[0];
     }
 
+    /**
+     * Get the canvas context and set perseve drawing buffer to false
+     */
     getCanvasContext() {
         return this.canvas.getContext("experimental-webgl", {
             preserveDrawingBuffer: false
         });
     }
 
+    /**
+     * Generate a compostite image of the map and overlay
+     */
     async generateImageComposite() {
         let mapImg = URL.createObjectURL(await this.exportImageBlob(this.canvas));
         let newDiv = this._createTempDiv();
@@ -72,7 +86,6 @@ export default class CanvasClass {
 
     /**
      * Save blob export
-     * @param {*} filename the file name to save it as 
      */
     async exportMap(){
         let canvasBlob = await this.exportImageBlob(this.canvas);
@@ -80,9 +93,7 @@ export default class CanvasClass {
     }
 
     /**
-     * Export the ovelray
-     * @param {*} width 
-     * @param {*} height 
+     * Export the ovelay
      */
     exportOverlayCanvas() {
         let newDiv = this._createTempDiv();
@@ -100,6 +111,9 @@ export default class CanvasClass {
         });
     }
 
+    /**
+     * Create a temp div to hold the mapOverlay during export
+     */
     _createTempDiv() {
         let contDiv = document.getElementsByClassName('map-overlay')[0];
         let cloneDiv = contDiv.cloneNode(true);
@@ -114,6 +128,10 @@ export default class CanvasClass {
 
     }
 
+    /**
+     * Turn the callback into a promoise
+     * @param {Object} canvas The canvas to turn into blob
+     */
     async _getCanvasBlob(canvas) {
         return new Promise(function (resolve, reject) {
             canvas.toBlob(function (blob) {
@@ -163,6 +181,10 @@ export default class CanvasClass {
         }
     }
 
+    /**
+     * Helper function to help override the dpi. This exports the image at 300pixels per inch for a 18x24 poster
+     * @param {Number} dpi 
+     */
     setWindowDPI(dpi = 300) {
         Object.defineProperty(window, 'devicePixelRatio', {
             get: function () {

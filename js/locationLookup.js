@@ -6,17 +6,16 @@ import mapboxgl from 'mapbox-gl';
  * Location Lookup class - Binds Google places to text box and binds google places to map
  */
 export default class LocationLookup {
-    
+
     constructor(textOverlay, mapBox) {
         this.textOverlay = textOverlay;
         this.mapBox = mapBox;
     }
 
+    /**
+     * Set up the fields to bind mapBox and google places api
+     */
     locationLookupLoaded() {
-        this.setupFields();
-    }
-
-    setupFields() {
         let addressField = document.getElementById('pac-input');
         var options = {
             types: ['(cities)']

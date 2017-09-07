@@ -28,19 +28,19 @@ require('../images/manifest/icon-96x96.png');
 require('../images/manifest/icon-72x72.png');
 require('../images/manifest/icon-48x48.png');
 
-function updateDPI(dpi = 300) {
+(function updateDPI() {
     Object.defineProperty(window, 'devicePixelRatio', {
         get: function () {
-            return dpi / 96
+            return 300 / 96
         }
     });
-}
+})();
 
-updateDPI();
 
 let map = new Map(keys().mapBox)
 
 let  locationLookupCallback = ()=> {
+    //set up the poster and pass in th map (we only want one instance)
     let posterStyling  = new PosterStyling(map);
     let locationLookup = new LocationLookup(posterStyling, map );
     locationLookup.locationLookupLoaded();
@@ -53,11 +53,11 @@ window.locationLookupCallback = locationLookupCallback;
 //set up some things for when the documnet loads
 document.addEventListener("DOMContentLoaded", function(event) { 
     //set up the google maps api. We need to pass in the key from the keys.js file
+    let googlePlacesKey = keys().googlePlaces;
     let script = document.createElement('script');
     script.type = 'text/javascript';
     script.async = true;
-    let googlePlacesKey = keys().googlePlaces;
+    //build the maps url with the google places key
     script.src = `https://maps.googleapis.com/maps/api/js?key=${googlePlacesKey}&libraries=places&callback=locationLookupCallback`;
-    console.log(script.src);
     document.getElementsByTagName('head')[0].appendChild(script);
 });
