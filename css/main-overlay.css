@@ -1,6 +1,7 @@
 :root{
     --country-ornamental-pos: 106%;
     --country-ornamental-color: #000000;
+    --country-ornamental-width: 3em;
     --country-overlay-font: Montserrat, sans-serif;
     --city-overlay-font:  Montserrat, sans-serif;
     --location-overlay-font: Montserrat, sans-serif;
@@ -8,6 +9,7 @@
     --overlay-gradient-color: white;
     --overlay-gradient-base-color: rgba(255,255,255,0);
     --text-overlay-height: .25;
+    
 }
 
 
@@ -75,7 +77,7 @@
 .country-overlay:after {
     content: '';
     display: block;
-    width: 3em;
+    width: var(--country-ornamental-width);
     position: absolute;
     top: 50px;
     border-top: 5px solid var(--country-ornamental-color);
@@ -86,12 +88,11 @@
 .country-overlay:before {
     content: '';
     display: block;
-    width: 3em;
+    width: var(--country-ornamental-width);
     position: absolute;
     border-top: 5px solid var(--country-ornamental-color);
     top: 50px;
-    left: var(--country-ornamental-pos);
-     
+    left: var(--country-ornamental-pos);    
 }
 
 .coord-overlay {

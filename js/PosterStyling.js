@@ -20,10 +20,12 @@ import Styles from './Styles'
 
         this.html = document.getElementsByTagName('html')[0];  
         
-        //get elements
+        //get control elements
         this.textColorPicker = document.querySelector('.text-color-picker');
         this.ornamentalColorPicker = document.querySelector('.ornamental-color-picker');
         this.gradientColorPicker = document.querySelector('.gradient-color-picker');
+        this.ornamentalPosition = document.querySelector('.ornamental-position');
+        this.ornamentalSize = document.querySelector('.ornamental-size');
                 
 
         //bind this to this context
@@ -31,11 +33,13 @@ import Styles from './Styles'
         this.updateLocation = this.updateLocation.bind(this);
         this.updateCountry = this.updateCountry.bind(this);
 
-        //bind 
+        //bind control elements
         this.setTextColor = this.setTextColor.bind(this);
         this.setStyle = this.setStyle.bind(this);
         this.setOrnamentalColor = this.setOrnamentalColor.bind(this);
         this.setGradientColor = this.setGradientColor.bind(this);
+        this.setOrnamentalPosition = this.setOrnamentalPosition.bind(this);
+        this.setOrnamentalSize = this.setOrnamentalSize.bind(this);
 
         //add event listeners
         this.createStyleSelector(); 
@@ -53,6 +57,8 @@ import Styles from './Styles'
         this.textColorPicker.addEventListener("change", this.setTextColor, false);
         this.ornamentalColorPicker.addEventListener("change" , this.setOrnamentalColor, false);
         this.gradientColorPicker.addEventListener("change" , this.setGradientColor, false);
+        this.ornamentalPosition.addEventListener("input", this.setOrnamentalPosition, false);
+        this.ornamentalSize.addEventListener("input", this.setOrnamentalSize, false);
       }
 
     updateCity(){
@@ -88,7 +94,7 @@ import Styles from './Styles'
     }
 
     formatCoord(lat, long){
-        return ` ${lat.toFixed(4)}° ${lat < 0 ? 'S' : 'N'} / ${Math.abs(long.toFixed(4))}° ${long <  0 ? 'W' : 'E'}`
+        return ` ${lat.toFixed(4)}° ${lat < 0 ? 'S' : 'N'} / ${Math.abs(long.toFixed(4))}° ${long <  0 ? 'W' : 'E'}`;
     }
 
     setOverlayStyle(style){
@@ -114,6 +120,16 @@ import Styles from './Styles'
 
     }
 
+    setOrnamentalPosition(e){
+        let position = e.target.value;
+        this.html.style.setProperty('--country-ornamental-pos' , position + '%' || '106px');
+    }
+
+    setOrnamentalSize(e){
+        let size = e.target.value;
+        this.html.style.setProperty('--country-ornamental-width' , size + 'em' || '3em');        
+    }
+
         /**
      * Pass the event to set the style by name
      * @param {event} style - the event that contains the style event
@@ -130,6 +146,8 @@ import Styles from './Styles'
         this.html.style.setProperty('--country-ornamental-color' , style.ornamentalColor || '#FFFFFF');
         this.html.style.setProperty('--overlay-gradient-color' , style.gradientColor);      
     }
+
+
 
 
     /**
