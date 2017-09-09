@@ -41,6 +41,10 @@ module.exports = {
                 ]
             }, 
             {
+                test: /\.json$/,
+                loader: 'file-loader'
+            },
+            {
                 test: /manifest.json$/,
                 loader: 'file-loader?name=manifest.json!web-app-manifest-loader'
             }
