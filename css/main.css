@@ -9,7 +9,7 @@
 
 html * {
     font-family: Roboto;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .map {
@@ -27,7 +27,7 @@ html * {
 }
 
 .controls {
-    overflow-y: scroll;
+
     padding-left: 20px;
 }
 
@@ -87,6 +87,7 @@ html * {
 }
 
 .wrapper .configure {
+    overflow-y: scroll;
     width: 460px;
     height: 100vh;
     float: right;
@@ -270,6 +271,10 @@ input[type="color"]::-webkit-color-swatch {
     justify-content: space-between;
 }
 
+.color-picker-section span{
+    font-size: 14px;
+}
+
 .slider-input {
     max-width: 20%;
     padding: 0px;
@@ -280,6 +285,10 @@ input[type="color"]::-webkit-color-swatch {
     padding: 5px 0px;
     margin: 5px 0px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.style-subsection-header span{
+    font-size: 15px;
 }
 
 input[type=range] {
