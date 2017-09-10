@@ -144,10 +144,12 @@ import Styles from './Styles'
         //get the root html to modify the css vars   
         this.html.style.setProperty('--overlay-font-color' , style.textColor || '#FFFFFF');
         this.html.style.setProperty('--country-ornamental-color' , style.ornamentalColor || '#FFFFFF');
-        this.html.style.setProperty('--overlay-gradient-color' , style.gradientColor);      
+        this.html.style.setProperty('--overlay-gradient-color' , style.gradientColor);
+        this.html.style.setProperty('--country-ornamental-width' , style.ornamentalWidth);      
+        this.html.style.setProperty('--country-ornamental-pos' , style.ornamentalPostition);            
     }
 
-
+    
 
 
     /**

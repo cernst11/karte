@@ -15,7 +15,9 @@ export default class Styles {
                 overlay: {
                     textColor: '#000000',
                     ornamentalColor: '#000000',
-                    gradientColor: '#FFFFFF'
+                    gradientColor: '#FFFFFF', 
+                    ornamentalPostition: '106%',
+                    ornamentalWidth: '3em'
                 }
             },
             {
