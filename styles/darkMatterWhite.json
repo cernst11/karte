@@ -1080,7 +1080,7 @@
                 ]
             ],
             "layout": {
-                "text-size": 10,
+                "text-size": 0,
                 "text-max-angle": 30,
                 "text-transform": "uppercase",
                 "symbol-spacing": 350,
@@ -1127,7 +1127,7 @@
                 ]
             ],
             "layout": {
-                "text-size": 10,
+                "text-size": 0,
                 "symbol-spacing": 350,
                 "text-font": [
                     "Metropolis Light",
