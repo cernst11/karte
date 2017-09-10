@@ -27,6 +27,7 @@ html * {
 }
 
 .controls {
+    overflow-y: scroll;
     padding-left: 20px;
 }
 

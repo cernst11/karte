@@ -1,6 +1,7 @@
 /**
  * Class to get map and overlay styles attached to diffrent map styles
  */
+//import any themes that are loaded with webpack
 const darkMatterWhite = require('../styles/darkMatterWhite.json');
 
 export default class Styles {
