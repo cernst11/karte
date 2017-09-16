@@ -21,12 +21,14 @@ import '../css/main.css';
 import '../css/main-overlay.css';
 
 //images
-require('../images/manifest/icon-512x512.png');
-require('../images/manifest/icon-192x192.png');
-require('../images/manifest/icon-144x144.png');
-require('../images/manifest/icon-96x96.png');
-require('../images/manifest/icon-72x72.png');
-require('../images/manifest/icon-48x48.png');
+require('../images/icons/icon-512x512.png');
+require('../images/icons/icon-384x384.png');
+require('../images/icons/icon-192x192.png');
+require('../images/icons/icon-152x152.png');
+require('../images/icons/icon-144x144.png');
+require('../images/icons/icon-128x128.png');
+require('../images/icons/icon-96x96.png');
+require('../images/icons/icon-72x72.png');
 
 (function updateDPI() {
     Object.defineProperty(window, 'devicePixelRatio', {

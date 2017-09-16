@@ -69,8 +69,8 @@ export default class CanvasClass {
 
                 }, "image/png");
             },
-            width: 1800,
-            height: 2400,
+            width: this.width,
+            height: this.height,
             letterRendering: true
         });
     }
