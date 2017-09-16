@@ -15,6 +15,7 @@ export default class CanvasClass {
         this.height = height;
         this.width = width;
         this.canvas = this.getCanvas();
+        this.compatibilityCheck();
 
         this.mapExport = document.querySelector('.map-export');
         this.overlayExport = document.querySelector('.overlay-export');
@@ -65,7 +66,7 @@ export default class CanvasClass {
                     let mapOverlay = URL.createObjectURL(blob);
                     let renderdComposite = that.createCompositeCanvas(mapImg, mapOverlay);
                     newDiv.parentNode.removeChild(newDiv);
-                    
+
                 }, "image/png");
             },
             width: 1800,
@@ -87,9 +88,9 @@ export default class CanvasClass {
     /**
      * Save blob export
      */
-    async exportMap(){
+    async exportMap() {
         let canvasBlob = await this.exportImageBlob(this.canvas);
-        FileSaver.saveAs(canvasBlob, 'map.png' );
+        FileSaver.saveAs(canvasBlob, 'map.png');
     }
 
     /**
@@ -105,8 +106,8 @@ export default class CanvasClass {
                 }, "image/png");
 
             },
-            width: 1800,
-            height: 2400,
+            width: this.width,
+            height: this.height,
             letterRendering: true
         });
     }
@@ -142,20 +143,20 @@ export default class CanvasClass {
 
     /**
      * Composite the two files into a canvas and export the resulting composite 
-     * @param {$} map The map to export
-     * @param {*} overlay The overlay to export
-     * @param {*} width The width of the canvas
-     * @param {*} height The height of the canvas
+     * @param {Object} map The map to export
+     * @param {Object} overlay The overlay to export
+     * @param {Number} [width] The width of the canvas
+     * @param {Number} [height] The height of the canvas
      */
     async createCompositeCanvas(map, overlay, width = 5625, height = 7500, ) {
-        try{
+        try {
             let canvas = document.createElement('canvas');
             canvas.id = "compositeCanvas";
             canvas.width = width;
             canvas.height = height;
             canvas.style.zIndex = 8;
             document.body.appendChild(canvas);
-    
+
             let mapImg = new window.Image();
             var overlayImg = new window.Image();
             mapImg.addEventListener('load', function () {
@@ -163,21 +164,35 @@ export default class CanvasClass {
                 //scale the overlay to match the map 
                 canvas.getContext('2d').drawImage(overlayImg, 0, 0,
                     overlayImg.width,
-                    overlayImg.height, 
+                    overlayImg.height,
                     0, 0, canvas.width, canvas.height);
                 canvas.toBlob(blob => {
                     FileSaver.saveAs(blob, "composite.png");
                     canvas.parentNode.removeChild(canvas);
                 }, "image/png");
             });
-    
+
             mapImg.setAttribute("src", map);
             overlayImg.setAttribute("src", overlay);
-            
-            return {completed: true, errors: null};
 
-        }catch(e){
-            return {completed: false, errors: e};
+            return {
+                completed: true,
+                errors: null
+            };
+
+        } catch (e) {
+            return {
+                completed: false,
+                errors: e
+            };
+        }
+    }
+
+    compatibilityCheck() {
+        if (!this.canvas.toBlob) {
+            let overlay = document.createElement('div');
+            overlay.id = "overlay"
+            document.getElementsByTagName('body')[0].appendChild(overlay);
         }
     }
 

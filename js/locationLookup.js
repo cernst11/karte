@@ -10,6 +10,7 @@ export default class LocationLookup {
     constructor(textOverlay, mapBox) {
         this.textOverlay = textOverlay;
         this.mapBox = mapBox;
+        this.locationLookupLoaded();
     }
 
     /**

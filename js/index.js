@@ -8,7 +8,7 @@ import Styles from './Styles';
 
 //External libs
 import fileSaver from 'file-Saver';
-import html2canvas  from 'html2canvas';
+import html2canvas from 'html2canvas';
 import mapboxgl from 'mapbox-gl';
 require('offline-plugin/runtime').install();
 
@@ -39,19 +39,23 @@ require('../images/manifest/icon-48x48.png');
 
 let map = new Map(keys().mapBox)
 
-let  locationLookupCallback = ()=> {
+let locationLookupCallback = () => {
     //set up the poster and pass in th map (we only want one instance)
-    let posterStyling  = new PosterStyling(map);
-    let locationLookup = new LocationLookup(posterStyling, map );
-    locationLookup.locationLookupLoaded();
+    let posterStyling = new PosterStyling(map);
+    let locationLookup = new LocationLookup(posterStyling, map);
+    //locationLookup.locationLookupLoaded();
     let canvasClass = new CanvasClass(1800, 2400);
+
 }
+
+
+
 
 //set this to windows scope so the callback picks it up
 window.locationLookupCallback = locationLookupCallback;
 
 //set up some things for when the documnet loads
-document.addEventListener("DOMContentLoaded", function(event) { 
+document.addEventListener("DOMContentLoaded", function (event) {
     //set up the google maps api. We need to pass in the key from the keys.js file
     let googlePlacesKey = keys().googlePlaces;
     let script = document.createElement('script');
