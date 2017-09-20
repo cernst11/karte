@@ -39,7 +39,7 @@ require('../images/icons/icon-72x72.png');
 })();
 
 
-let map = new Map(keys().mapBox)
+let map = new Map(keys.mapBox);
 
 let locationLookupCallback = () => {
     //set up the poster and pass in th map (we only want one instance)
@@ -59,7 +59,7 @@ window.locationLookupCallback = locationLookupCallback;
 //set up some things for when the documnet loads
 document.addEventListener("DOMContentLoaded", function (event) {
     //set up the google maps api. We need to pass in the key from the keys.js file
-    let googlePlacesKey = keys().googlePlaces;
+    let googlePlacesKey = keys.googlePlaces;
     let script = document.createElement('script');
     script.type = 'text/javascript';
     script.async = true;

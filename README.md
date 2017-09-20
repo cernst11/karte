@@ -62,14 +62,11 @@ cd karte
 Use a text or terminal to add a file `keys.js` to the `js` directory. This is to place your keys to use in the project
 
 ```javascript
-export default function keys() {
-
-    let keys = {
+export default {
         mapBox: 'your mapbox key here',
         googlePlaces: 'your google maps key here'
     }
-    return keys;
-}
+
 ```
 
 Build the project. This will drop the html, bundle, fonts into the repo 
@@ -115,6 +112,8 @@ Map and overlay styles are both configurable. Currently map themes are hardcoded
         textColor : '#000000',
         ornamentalColor : '#000000',
         gradientColor: '#FFFFFF'
+        ornamentalPostition: '106%',
+        ornamentalWidth: '3em'
     }
 }
 ```
@@ -132,6 +131,20 @@ textColor: What color the text should be
 ornamentalColor: The color of the ornaments next to country
 
 gradientColor: The color of the gradient
+
+## Creating a new theme
+
+Themes can be created using  `mapBox` or `Maputnik`. If you have the ability to host a theme you can create 
+a new entry in Styles.js based on the example in Themes/Styles section and point the url property to url of the theme.
+
+If you can't or don't want to host a theme. The theme can be exported as JSON and added to the `styles` folder. Then you must add the following to the `js\Styles.js` file
+below the current imports.
+
+```Javascript
+    const nameOfTheme = require('../styles/nameOfTheme.json');
+```
+
+Then create a new value based on the example in Themes/Styles section in `Style.js` and use the variable name as the value for the url key. 
 
 ## TODO
 
