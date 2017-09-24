@@ -11,8 +11,6 @@ export default class Map{
         this.mapBoxKey = mapBoxKey;
         this.style = 'mapbox://styles/cernst11/cj28e31au00072tpeqo01n9gf';
         this.html = document.getElementsByTagName('html')[0];  
-        
-        //this.setStyle = this.setStyle.bind(this);
         //create the style selectors and build the map
         this.buildMap();
     }

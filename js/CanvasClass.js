@@ -11,11 +11,16 @@ export default class CanvasClass {
      * @param {number} width The width of the canvas
      * @param {number} height The height of the canvas
      */
-    constructor(width, height) {
+    constructor(width, height, imageWidth, imageHeight ) {
+        //this.setMapDisplaySize(height, width);
         this.height = height;
         this.width = width;
+        //In inches
+        this.exportHeight = imageHeight * 300;
+        this.exportWidth = imageWidth * 300;
         this.canvas = this.getCanvas();
         this.compatibilityCheck();
+        
 
         this.mapExport = document.querySelector('.map-export');
         this.overlayExport = document.querySelector('.overlay-export');
@@ -89,8 +94,8 @@ export default class CanvasClass {
      * Save blob export
      */
     async exportMap() {
-        let canvasBlob = await this.exportImageBlob(this.canvas);
-        FileSaver.saveAs(canvasBlob, 'map.png');
+        let canvasBlob =  this.exportImageBlob(this.canvas);
+        FileSaver.saveAs(await canvasBlob, 'map.png');
     }
 
     /**
@@ -148,17 +153,18 @@ export default class CanvasClass {
      * @param {Number} [width] The width of the canvas
      * @param {Number} [height] The height of the canvas
      */
-    async createCompositeCanvas(map, overlay, width = 5625, height = 7500, ) {
+    async createCompositeCanvas(map, overlay) {
         try {
             let canvas = document.createElement('canvas');
             canvas.id = "compositeCanvas";
-            canvas.width = width;
-            canvas.height = height;
+            canvas.width = this.exportWidth;
+            canvas.height = this.exportHeight;
             canvas.style.zIndex = 8;
             document.body.appendChild(canvas);
 
             let mapImg = new window.Image();
-            var overlayImg = new window.Image();
+            let overlayImg = new window.Image();
+
             mapImg.addEventListener('load', function () {
                 canvas.getContext('2d').drawImage(mapImg, 0, 0);
                 //scale the overlay to match the map 
@@ -194,6 +200,27 @@ export default class CanvasClass {
             overlay.id = "overlay"
             document.getElementsByTagName('body')[0].appendChild(overlay);
         }
+    }
+
+    changeDisplaySize(width, height, imageWidth, imageHeight ){
+        this.setMapDisplaySize(width, height);
+        this.height = height;
+        this.width = width;
+        //In inches
+        this.exportHeight = imageHeight * 300;
+        this.exportWidth = imageWidth * 300;
+
+    }
+
+    setMapDisplaySize(width, height){
+        const mapOverlay = document.querySelector('#map-overlay');
+        const mapDiv = document.querySelector('#map');
+        let displayHeight = height.toString() + 'px';
+        let displayWidth = width.toString() + 'px';
+        mapOverlay.style.height = displayHeight;
+        mapOverlay.style.width = displayWidth;
+        mapDiv.style.height = displayHeight;
+        mapDiv.style.width = displayWidth;
     }
 
     /**

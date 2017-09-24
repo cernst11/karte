@@ -30,6 +30,7 @@ require('../images/icons/icon-128x128.png');
 require('../images/icons/icon-96x96.png');
 require('../images/icons/icon-72x72.png');
 
+//force the web cnavs layer to use 300 dpi
 (function updateDPI() {
     Object.defineProperty(window, 'devicePixelRatio', {
         get: function () {
@@ -39,14 +40,26 @@ require('../images/icons/icon-72x72.png');
 })();
 
 
+/* const mapOverlay = document.querySelector('#map-overlay');
+const mapDiv = document.querySelector('#map');
+let height = "2400px"
+let width = "1800px"
+mapOverlay.style.height = height;
+mapOverlay.style.width = width;
+mapDiv.style.height = height;
+mapDiv.style.width = width; */
+
+
 let map = new Map(keys.mapBox);
 
 let locationLookupCallback = () => {
     //set up the poster and pass in th map (we only want one instance)
+    let canvasClass = new CanvasClass(1800, 2400, 18, 24);
     let posterStyling = new PosterStyling(map);
     let locationLookup = new LocationLookup(posterStyling, map);
     //locationLookup.locationLookupLoaded();
-    let canvasClass = new CanvasClass(1800, 2400);
+    canvasClass.changeDisplaySize(900, 1200, 9, 12);
+    
 
 }
 
