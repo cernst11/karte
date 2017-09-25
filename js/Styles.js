@@ -91,7 +91,38 @@ export default class Styles {
                     ornamentalColor: '#FFFFFF',
                     gradientColor: '#000000'
                 }
-            }
+            }, 
+            {
+                name: 'Whaam!',
+                url: 'mapbox://styles/cernst11/cj7zcsvyk6ugc2ro5wqzf2er0',
+                author: 'mapBox',
+                overlay: {
+                    textColor: '#C10000',
+                    ornamentalColor: '#C10000',
+                    gradientColor: '#FFFFFF'
+                }
+
+            }, 
+            {
+                name: 'Terminal',
+                url: 'mapbox://styles/cernst11/cj7zdrnjs6vdk2sp33ghet3o0',
+                author: 'mapBox',
+                overlay: {
+                    textColor: '#35701B',
+                    ornamentalColor: '#35701B',
+                    gradientColor: '#000000'
+                }
+            }, 
+            {
+                name: 'Standards',
+                url: 'mapbox://styles/cernst11/cj7ze0csg6vwg2so7jdnyuzaq',
+                author: 'mapBox',
+                overlay: {
+                    textColor: '#31339e',
+                    ornamentalColor: '#31339e',
+                    gradientColor: '#F0E9D8'
+                }
+            }, 
 
         ]
 
