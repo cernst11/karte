@@ -65,4 +65,5 @@ dist
 cert.pem
 key.pem
 js/keys.js
+.env
 

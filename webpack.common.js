@@ -1,24 +1,13 @@
 const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const Uglify = require("uglifyjs-webpack-plugin");
 const fs = require('fs');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
-
-
-var PROD = (process.env.NODE_ENV === 'production')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-    entry: './js/index.js',
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
-    },
-    devtool: 'eval',
-    devServer: {
-        contentBase: './dist'
+    entry: {
+        app: './js/index.js'
     },
     module: {
         rules: [{
@@ -51,23 +40,9 @@ module.exports = {
         ]
     },
 
+    plugins: [
+        new CleanWebpackPlugin(['dist']),
 
-    output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist')
-    },
-    plugins: PROD ? [
-        new Uglify({
-            compress: {
-                warnings: true
-            }
-        })
-    ] : [
-        new Uglify({
-            compress: {
-                warnings: true
-            }
-        }),
         new HtmlWebpackPlugin({
             title: 'Karte',
             inject: true,
@@ -100,8 +75,10 @@ module.exports = {
                 }
             }
         }),
+    ],
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist')
+    },
 
-    ]
 };
-
-let dev = [];

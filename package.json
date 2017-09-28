@@ -7,21 +7,30 @@
   "author": "cernst11 <cernst11@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "del-cli dist/* && webpack",
-    "start": "webpack-dev-server --open",
+    "build": "del-cli dist/* && webpack --config webpack.prod.js",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
     "watch": "webpack --watch",
-    "cleanup": "del-cli dist/*"
+    "cleanup": "del-cli dist/*",
+    "start-server": "node ./bin/www"
   },
   "dependencies": {
+    "body-parser": "~1.17.1",
     "buffer": "^5.0.7",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
     "del-cli": "^1.1.0",
+    "dotenv": "^4.0.0",
     "es6-promisify": "^5.0.0",
+    "express": "~4.15.2",
     "file-saver": "^1.3.3",
     "html2canvas": "^0.5.0-beta4",
     "install": "^0.10.1",
+    "jade": "~1.11.0",
     "mapbox": "^1.0.0-beta9",
     "mapbox-gl": "^0.39.1",
+    "morgan": "~1.8.1",
     "npm": "^5.3.0",
+    "serve-favicon": "~2.4.2",
     "web-app-manifest-loader": "^0.1.1"
   },
   "devDependencies": {
@@ -33,6 +42,7 @@
     "style-loader": "^0.18.2",
     "webpack": "^3.5.5",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-server": "^2.7.1",
+    "webpack-merge": "^4.1.0"
   }
 }
