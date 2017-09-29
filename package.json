@@ -7,10 +7,11 @@
   "author": "cernst11 <cernst11@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "del-cli dist/* && webpack",
-    "start": "webpack-dev-server --open",
+    "build": "del-cli dist/* && webpack --config webpack.prod.js",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
     "watch": "webpack --watch",
-    "cleanup": "del-cli dist/*"
+    "cleanup": "del-cli dist/*",
+    "start-server": "node ./bin/www"
   },
   "dependencies": {
     "buffer": "^5.0.7",
