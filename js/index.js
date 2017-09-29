@@ -40,6 +40,7 @@ require('../images/icons/icon-72x72.png');
 
 
 let map = new Map(keys.mapBox);
+console.log(process.env)
 
 let locationLookupCallback = () => {
     //set up the poster and pass in th map (we only want one instance)

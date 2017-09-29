@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const webpack = require('webpack');
 
 module.exports = {
     entry: {
@@ -53,7 +54,6 @@ module.exports = {
             publicPath: '/',
             caches: {
                 main: [
-
                     'main.*.js'
                 ],
                 additional: [
@@ -75,6 +75,12 @@ module.exports = {
                 }
             }
         }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'GOOGLEPALCE': JSON.stringify(process.env.GOOGLEPALCE),
+                'MAPBOX': JSON.stringify(process.env.MAPBOX)
+            }
+        })
     ],
     output: {
         filename: 'bundle.js',
