@@ -28,7 +28,7 @@ module.exports = {
                 use: [
                     'file-loader'
                 ]
-            }, 
+            },
             {
                 test: /\.json$/,
                 loader: 'file-loader'
@@ -36,6 +36,22 @@ module.exports = {
             {
                 test: /manifest.json$/,
                 loader: 'file-loader?name=manifest.json!web-app-manifest-loader'
+            },
+            {
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        "presets": [
+                            ["env", {
+                                "targets": {
+                                    "browsers": ["last 2 versions", "safari >= 7"]
+                                }
+                            }]
+                        ]
+                    }
+                }
             }
 
         ]

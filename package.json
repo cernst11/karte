@@ -7,13 +7,15 @@
   "author": "cernst11 <cernst11@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "del-cli dist/* && webpack --config webpack.prod.js",
+    "build": "webpack --config webpack.prod.js",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "watch": "webpack --watch",
     "cleanup": "del-cli dist/*",
     "start-server": "node ./bin/www"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "blueimp-canvas-to-blob": "^3.14.0",
     "buffer": "^5.0.7",
     "del-cli": "^1.1.0",
     "es6-promisify": "^5.0.0",
@@ -26,14 +28,21 @@
     "web-app-manifest-loader": "^0.1.1"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-minify-webpack-plugin": "^0.2.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-runtime": "^6.26.0",
     "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^0.28.5",
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.30.1",
     "offline-plugin": "^4.8.3",
     "style-loader": "^0.18.2",
-    "webpack": "^3.5.5",
+    "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-server": "^2.7.1",
+    "webpack-merge": "^4.1.0"
   }
 }
