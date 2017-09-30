@@ -73,7 +73,7 @@ export default class Styles {
             },
 
             {
-                name: 'Vinatge',
+                name: 'Vintage',
                 url: 'mapbox://styles/cernst11/cj7cn20k203jb2sqeyb3nqr9j',
                 author: 'mapBox',
                 overlay: {
@@ -114,7 +114,7 @@ export default class Styles {
                 }
             }, 
             {
-                name: 'Standards',
+                name: 'Standard-Style',
                 url: 'mapbox://styles/cernst11/cj7ze0csg6vwg2so7jdnyuzaq',
                 author: 'mapBox',
                 overlay: {
