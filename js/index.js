@@ -6,7 +6,6 @@ import Map from './Map.js';
 import PosterStyling from './PosterStyling';
 import keys from './keys';
 import Styles from './Styles';
-require('blueimp-canvas-to-blob');
 
 //External libs
 import fileSaver from 'file-Saver';
