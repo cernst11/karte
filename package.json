@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "start": "webpack-dev-server --open --config webpack.dev.js",
-    "watch": "webpack --watch",
+    "watch": "webpack --watch --open --config webpack.dev.js",
     "cleanup": "del-cli dist/*",
     "start-server": "node ./bin/www"
   },
