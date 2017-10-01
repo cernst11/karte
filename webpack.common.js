@@ -67,10 +67,11 @@ module.exports = {
             hash: true
         }),
         new OfflinePlugin({
+            safeToUseOptionalCaches: true,
             publicPath: '/',
             caches: {
                 main: [
-                    'main.*.js'
+                    'bundle.js'
                 ],
                 additional: [
                     ':externals:'
