@@ -195,7 +195,6 @@ select {
     width: 100%;
     padding: 4px 0;
     font-size: 16px;
-    color: rgba(0, 0, 0, 0.26);
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
