@@ -196,6 +196,7 @@ export default class CanvasClass {
                     }, "image/png");
                 } else {
                     CanvasToTIFF.toBlob(canvas, blob => {
+                        FileSaver.saveAs(blob, "composite.tiff");
                         canvas.parentNode.removeChild(canvas);  
                     }, this.tiffExportProperties());
                 }
