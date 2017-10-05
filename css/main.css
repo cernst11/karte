@@ -180,6 +180,7 @@ body {
 .export-buttons {
     display: flex;
     flex-direction: row;
+    margin-bottom:10px
 }
 
 .section-label {

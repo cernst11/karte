@@ -28,7 +28,7 @@
 /* Fill the top portion of the container with an empty div */
 .text-filler {
     order: 0;
-    flex: calc(1 - var(--text-overlay-height)) calc(1 - var(--text-overlay-height)) auto;
+    flex: calc(1 - var(--text-overlay-height)) auto;
 }
 
 .text-overlay {

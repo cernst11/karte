@@ -1,5 +1,7 @@
 import FileSaver from 'file-Saver';
 import html2canvas from 'html2canvas';
+import CanvasToTIFF from './lib/canvasToTIFF/canvastotiff'
+
 
 /**
  * This class deals with exporting the canvas
@@ -20,6 +22,7 @@ export default class CanvasClass {
         this.mapExport = document.querySelector('.map-export');
         this.overlayExport = document.querySelector('.overlay-export');
         this.compImageExport = document.querySelector('.comp-image');
+        this.exportType = document.querySelector('.export-select');
 
         this.exportMap = this.exportMap.bind(this);
         this.exportOverlayCanvas = this.exportOverlayCanvas.bind(this);
@@ -27,6 +30,7 @@ export default class CanvasClass {
         this.createCompositeCanvas = this.createCompositeCanvas.bind(this);
 
         this.addEventListeners();
+
 
     }
 
@@ -89,8 +93,20 @@ export default class CanvasClass {
      * Save blob export
      */
     async exportMap() {
-        let canvasBlob = await this.exportImageBlob(this.canvas);
-        FileSaver.saveAs(canvasBlob, 'map.png');
+        const canvasToExport = this.canvas;
+        this.getExportType() === 'TIFF' ? this.saveToTiff(canvasToExport, true) : this.saveToPng(canvasToExport, true);
+    }
+
+    async saveToTiff(canvasToExport) {
+        CanvasToTIFF.toBlob(canvasToExport, blob => {
+            FileSaver.saveAs(blob, "map.tiff");
+        }, this.tiffExportProperties());
+    }
+
+    async saveToPng(canvasToExport) {
+        canvasToExport.toBlob(blob => {
+            FileSaver.saveAs(blob, "map.png");
+        }, "image/png");
     }
 
     /**
@@ -100,11 +116,17 @@ export default class CanvasClass {
         let newDiv = this._createTempDiv();
         html2canvas(newDiv, {
             onrendered(canvas) {
-                canvas.toBlob(blob => {
-                    FileSaver.saveAs(blob, "overlay.png");
-                    newDiv.parentNode.removeChild(newDiv);
-                }, "image/png");
-
+                if (this.getExportType === 'TIFF') {
+                    canvas.toBlob(blob => {
+                        FileSaver.saveAs(blob, "overlay.png");
+                        newDiv.parentNode.removeChild(newDiv);
+                    }, "image/png")
+                } else {
+                    CanvasToTIFF.toBlob(canvas, blob => {
+                        FileSaver.saveAs(blob, "composite.tiff");
+                        canvas.parentNode.removeChild(canvas);
+                    },  this.tiffExportProperties());
+                }
             },
             width: this.width,
             height: this.height,
@@ -159,17 +181,24 @@ export default class CanvasClass {
 
             let mapImg = new window.Image();
             var overlayImg = new window.Image();
-            mapImg.addEventListener('load', function () {
+
+            mapImg.addEventListener('load', () => {
                 canvas.getContext('2d').drawImage(mapImg, 0, 0);
                 //scale the overlay to match the map 
                 canvas.getContext('2d').drawImage(overlayImg, 0, 0,
                     overlayImg.width,
                     overlayImg.height,
-                    0, 0, canvas.width, canvas.height);
-                canvas.toBlob(blob => {
-                    FileSaver.saveAs(blob, "composite.png");
-                    canvas.parentNode.removeChild(canvas);
-                }, "image/png");
+                    0, 0, canvas.width, canvas.height);   
+                if (this.getExportType() === 'PNG') {
+                    canvas.toBlob(blob => {
+                        FileSaver.saveAs(blob, "composite.png");
+                        canvas.parentNode.removeChild(canvas);
+                    }, "image/png");
+                } else {
+                    CanvasToTIFF.toBlob(canvas, blob => {
+                        canvas.parentNode.removeChild(canvas);  
+                    }, this.tiffExportProperties());
+                }
             });
 
             mapImg.setAttribute("src", map);
@@ -190,22 +219,48 @@ export default class CanvasClass {
 
     compatibilityCheck() {
         if (!this.canvas.toBlob) {
-            let overlay = document.createElement('div');
-            overlay.id = "overlay"
-            document.getElementsByTagName('body')[0].appendChild(overlay);
+            this.drawOverlay()
         }
     }
 
-    /**
-     * Helper function to help override the dpi. This exports the image at 300pixels per inch for a 18x24 poster
-     * @param {Number} dpi 
-     */
-    setWindowDPI(dpi = 300) {
-        Object.defineProperty(window, 'devicePixelRatio', {
-            get: function () {
-                return dpi / 96
-            }
-        });
+    drawOverlay(){
+        let overlay = document.createElement('div');
+        overlay.id = "overlay";
+        document.getElementsByTagName('body')[0].appendChild(overlay);
     }
 
-}
+    hideOverlay(){
+        const overlay = document.getElementById("overlay");
+        overlay.parentNode.removeChild( overlay );
+    }
+
+    getExportType() {
+        return this.exportType.options[this.exportType.selectedIndex].value;
+    }
+
+    /**
+     * Export Tiff  propeties
+     */
+    tiffExportProperties(compressm, dpi) {
+        return { // options
+            compress: false,
+            dpi: 300,
+            onError: function (e) {
+                console.log("Error:", e)
+            }
+        }
+    }
+
+        /**
+         * Helper function to help override the dpi. This exports the image at 300pixels per inch for a 18x24 poster
+         * @param {Number} dpi 
+         */
+        setWindowDPI(dpi = 300) {
+            Object.defineProperty(window, 'devicePixelRatio', {
+                get: function () {
+                    return dpi / 96
+                }
+            });
+        }
+
+    }
