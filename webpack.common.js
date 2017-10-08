@@ -38,6 +38,10 @@ module.exports = {
                 loader: 'file-loader?name=manifest.json!web-app-manifest-loader'
             },
             {
+                test: /\.html$/,
+                loader: 'html-loader'
+            },
+            {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
@@ -63,7 +67,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Karte',
             inject: true,
-            templateContent: fs.readFileSync('./index.html', 'utf8'),
+            template: './index.html',
             hash: true
         }),
         new OfflinePlugin({
