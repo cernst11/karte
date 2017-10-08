@@ -85,7 +85,7 @@ export default class CanvasClass {
      * @param {string} imageType The type of image to export
      */
     async exportImageBlob(canvas, imageType = 'image/png') {
-        let dpi = document.getElementById('dpi').value;
+        let dpi = 300;
         return await this._getCanvasBlob(canvas, imageType);
     }
 

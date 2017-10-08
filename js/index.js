@@ -31,6 +31,7 @@ require('../images/icons/icon-128x128.png');
 require('../images/icons/icon-96x96.png');
 require('../images/icons/icon-72x72.png');
 
+
 (function updateDPI() {
     Object.defineProperty(window, 'devicePixelRatio', {
         get: function () {
