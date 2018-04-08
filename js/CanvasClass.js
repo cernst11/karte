@@ -116,16 +116,17 @@ export default class CanvasClass {
         let newDiv = this._createTempDiv();
         html2canvas(newDiv, {
             onrendered(canvas) {
-                if (this.getExportType === 'TIFF') {
+                
+                if (this.getExportType() !== 'TIFF') {
                     canvas.toBlob(blob => {
                         FileSaver.saveAs(blob, "overlay.png");
                         newDiv.parentNode.removeChild(newDiv);
                     }, "image/png")
                 } else {
                     CanvasToTIFF.toBlob(canvas, blob => {
-                        FileSaver.saveAs(blob, "composite.tiff");
+                        FileSaver.saveAs(blob, "overlay.tiff");
                         canvas.parentNode.removeChild(canvas);
-                    },  this.tiffExportProperties());
+                    }, this.tiffExportProperties());
                 }
             },
             width: this.width,
@@ -163,6 +164,8 @@ export default class CanvasClass {
         })
     }
 
+
+
     /**
      * Composite the two files into a canvas and export the resulting composite 
      * @param {Object} map The map to export
@@ -188,18 +191,8 @@ export default class CanvasClass {
                 canvas.getContext('2d').drawImage(overlayImg, 0, 0,
                     overlayImg.width,
                     overlayImg.height,
-                    0, 0, canvas.width, canvas.height);   
-                if (this.getExportType() === 'PNG') {
-                    canvas.toBlob(blob => {
-                        FileSaver.saveAs(blob, "composite.png");
-                        canvas.parentNode.removeChild(canvas);
-                    }, "image/png");
-                } else {
-                    CanvasToTIFF.toBlob(canvas, blob => {
-                        FileSaver.saveAs(blob, "composite.tiff");
-                        canvas.parentNode.removeChild(canvas);  
-                    }, this.tiffExportProperties());
-                }
+                    0, 0, canvas.width, canvas.height);
+                this.getExportType() === 'PNG' ? this.compositePNGExport(canvas) : this.compositeTiffExport(canvas);
             });
 
             mapImg.setAttribute("src", map);
@@ -218,21 +211,28 @@ export default class CanvasClass {
         }
     }
 
+    compositeTiffExport(canvas) {
+        CanvasToTIFF.toBlob(canvas, blob => {
+            FileSaver.saveAs(blob, "composite.tiff");
+            canvas.parentNode.removeChild(canvas);
+        }, this.tiffExportProperties());
+    }
+
     compatibilityCheck() {
         if (!this.canvas.toBlob) {
             this.drawOverlay()
         }
     }
 
-    drawOverlay(){
+    drawOverlay() {
         let overlay = document.createElement('div');
         overlay.id = "overlay";
         document.getElementsByTagName('body')[0].appendChild(overlay);
     }
 
-    hideOverlay(){
+    hideOverlay() {
         const overlay = document.getElementById("overlay");
-        overlay.parentNode.removeChild( overlay );
+        overlay.parentNode.removeChild(overlay);
     }
 
     getExportType() {
@@ -252,16 +252,22 @@ export default class CanvasClass {
         }
     }
 
-        /**
-         * Helper function to help override the dpi. This exports the image at 300pixels per inch for a 18x24 poster
-         * @param {Number} dpi 
-         */
-        setWindowDPI(dpi = 300) {
-            Object.defineProperty(window, 'devicePixelRatio', {
-                get: function () {
-                    return dpi / 96
-                }
-            });
-        }
-
+    /**
+     * Helper function to help override the dpi. This exports the image at 300pixels per inch for a 18x24 poster
+     * @param {Number} dpi 
+     */
+    setWindowDPI(dpi = 300) {
+        Object.defineProperty(window, 'devicePixelRatio', {
+            get: function () {
+                return dpi / 96
+            }
+        });
     }
+
+    compositePNGExport(canvas, fileType) {
+        canvas.toBlob(blob => {
+            FileSaver.saveAs(blob, 'composite.png');
+            canvas.parentNode.removeChild(canvas);
+        }, 'image/png');
+    }
+}

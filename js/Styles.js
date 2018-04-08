@@ -3,6 +3,7 @@
  */
 //import any themes that are loaded with webpack
 const darkMatterWhite = require('../styles/darkMatterWhite.json');
+const darkside = require('../styles/darkside.json');
 
 export default class Styles {
     constructor() {}
@@ -19,6 +20,16 @@ export default class Styles {
                     gradientColor: '#FFFFFF', 
                     ornamentalPostition: '106%',
                     ornamentalWidth: '3em'
+                }
+            },
+            {
+                name: 'DarkSide',
+                url: 'mapbox://styles/cernst11/cjfkeq52g5qbk2sqgbxwt0a7k',
+                author: 'cernst',
+                overlay: {
+                    textColor: '#DBDBDB',
+                    ornamentalColor: '#DBDBDB',
+                    gradientColor: '#000000'
                 }
             },
             {
@@ -85,6 +96,16 @@ export default class Styles {
             {
                 name: 'Dark-Matter-White',
                 url: darkMatterWhite,
+                author: 'mapBox',
+                overlay: {
+                    textColor: '#FFFFFF',
+                    ornamentalColor: '#FFFFFF',
+                    gradientColor: '#000000'
+                }
+            }, 
+            {
+                name: 'Darkside',
+                url: 'mapbox://styles/cernst11/cjf4tw2br0fb22rnz8kdk40g1',
                 author: 'mapBox',
                 overlay: {
                     textColor: '#FFFFFF',

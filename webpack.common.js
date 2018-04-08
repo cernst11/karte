@@ -6,6 +6,7 @@ const OfflinePlugin = require('offline-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
 
+
 module.exports = {
     entry: {
         app: './js/index.js'
@@ -30,7 +31,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.json$/,
+                test: /\.(json|geojson)$/,
                 loader: 'file-loader'
             },
             {
@@ -42,15 +43,20 @@ module.exports = {
                 loader: 'html-loader'
             },
             {
+                test: /\.worker\.js$/,
+                use: { loader: 'worker-loader'}
+                
+            },
+            {
                 test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /(node_modules|bower_components|worker\.js)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
                         "presets": [
                             ["env", {
                                 "targets": {
-                                    "browsers": ["last 2 versions", "safari >= 8"]
+                                    "browsers": ["last 2 versions", "safari >= 10"]
                                 }
                             }]
                         ]

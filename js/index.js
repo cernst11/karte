@@ -11,16 +11,18 @@ import Styles from './Styles';
 import fileSaver from 'file-Saver';
 import html2canvas from 'html2canvas';
 import mapboxgl from 'mapbox-gl';
+import SideNav from './side-nav';
 require('offline-plugin/runtime').install();
 
 //App manifest for pwa
 require('./manifest.json');
+
 //css
 import '../css/font.css';
 import '../css/input.css';
 import '../css/main.css';
 import '../css/main-overlay.css';
-
+import '../css/sideNavigation.css';
 //images
 require('../images/icons/icon-512x512.png');
 require('../images/icons/icon-384x384.png');
@@ -42,6 +44,8 @@ require('../images/icons/icon-72x72.png');
 
 
 let map = new Map(keys.mapBox);
+/* let sideNav = new SideNav();
+sideNav.showSideNav(); */
 
 let locationLookupCallback = () => {
     //set up the poster and pass in th map (we only want one instance)
