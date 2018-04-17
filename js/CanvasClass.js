@@ -1,6 +1,7 @@
 import FileSaver from 'file-Saver';
 import html2canvas from 'html2canvas';
 import CanvasToTIFF from './lib/canvasToTIFF/canvastotiff'
+import autoBind from 'auto-bind'
 
 
 /**
@@ -23,15 +24,10 @@ export default class CanvasClass {
         this.overlayExport = document.querySelector('.overlay-export');
         this.compImageExport = document.querySelector('.comp-image');
         this.exportType = document.querySelector('.export-select');
-
-        this.exportMap = this.exportMap.bind(this);
-        this.exportOverlayCanvas = this.exportOverlayCanvas.bind(this);
-        this.generateImageComposite = this.generateImageComposite.bind(this);
-        this.createCompositeCanvas = this.createCompositeCanvas.bind(this);
-
+        autoBind(this);
         this.addEventListeners();
 
-
+   
     }
 
     addEventListeners() {
@@ -62,21 +58,12 @@ export default class CanvasClass {
      */
     async generateImageComposite() {
         let mapImg = URL.createObjectURL(await this.exportImageBlob(this.canvas));
-        let newDiv = this._createTempDiv();
         let that = this;
-        html2canvas(newDiv, {
-            onrendered(canvas) {
-                canvas.toBlob(blob => {
-                    let mapOverlay = URL.createObjectURL(blob);
-                    let renderdComposite = that.createCompositeCanvas(mapImg, mapOverlay);
-                    newDiv.parentNode.removeChild(newDiv);
-
-                }, "image/png");
-            },
-            width: this.width,
-            height: this.height,
-            letterRendering: true
-        });
+        const overlay = document.querySelector('#overlay-canvas');
+        overlay.toBlob(blob => {
+            let mapOverlay = URL.createObjectURL(blob);
+            let renderdComposite = that.createCompositeCanvas(mapImg, mapOverlay);
+        }, "image/png");           
     }
 
     /**
@@ -113,26 +100,16 @@ export default class CanvasClass {
      * Export the ovelay
      */
     exportOverlayCanvas() {
-        let newDiv = this._createTempDiv();
-        html2canvas(newDiv, {
-            onrendered(canvas) {
-                
-                if (this.getExportType() !== 'TIFF') {
-                    canvas.toBlob(blob => {
-                        FileSaver.saveAs(blob, "overlay.png");
-                        newDiv.parentNode.removeChild(newDiv);
-                    }, "image/png")
-                } else {
-                    CanvasToTIFF.toBlob(canvas, blob => {
-                        FileSaver.saveAs(blob, "overlay.tiff");
-                        canvas.parentNode.removeChild(canvas);
-                    }, this.tiffExportProperties());
-                }
-            },
-            width: this.width,
-            height: this.height,
-            letterRendering: true
-        });
+        const overlay = document.querySelector('#overlay-canvas');
+        if (this.getExportType() === 'PNG') {
+            overlay.toBlob(blob => {
+                FileSaver.saveAs(blob, "map.png");
+            }, "image/png");
+        }else{
+            CanvasToTIFF.toBlob(overlay, blob => {
+                FileSaver.saveAs(blob, "overlay.tiff");
+            }, this.tiffExportProperties());
+        }
     }
 
     /**

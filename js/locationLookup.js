@@ -10,7 +10,7 @@ export default class LocationLookup {
     constructor(textOverlay, mapBox) {
         this.textOverlay = textOverlay;
         this.mapBox = mapBox;
-        this.locationLookupLoaded();
+        this.locationLookupLoaded();    
     }
 
     /**
@@ -24,10 +24,14 @@ export default class LocationLookup {
         let autoComplete = new google.maps.places.Autocomplete(addressField, options);
         let that = this;
         autoComplete.addListener('place_changed', () => {
-            this.textOverlay.country = this.getCountryName(autoComplete.getPlace());
-            this.textOverlay.city = this.getCityName(autoComplete.getPlace());
-            this.textOverlay.location = this.textOverlay.formatCoord(autoComplete.getPlace().geometry.location.lat(),
-                autoComplete.getPlace().geometry.location.lng())
+            this.textOverlay.pojoProxy.country.text = this.getCountryName(autoComplete.getPlace());
+            this.textOverlay.pojoProxy.city.text = this.getCityName(autoComplete.getPlace());
+            this.textOverlay.pojoProxy.location.text = this.textOverlay.formatCoord(autoComplete.getPlace().geometry.location.lat(),
+                autoComplete.getPlace().geometry.location.lng());
+            this.textOverlay.countryInput.value = this.getCountryName(autoComplete.getPlace());
+            this.textOverlay.cityInput.value = this.getCityName(autoComplete.getPlace());
+            this.textOverlay.locationInput.value = this.textOverlay.formatCoord(autoComplete.getPlace().geometry.location.lat(), 
+                autoComplete.getPlace().geometry.location.lng());
             that.mapBox.map.setCenter([autoComplete.getPlace().geometry.location.lng(),
                 autoComplete.getPlace().geometry.location.lat()
             ]);

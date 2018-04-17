@@ -20,9 +20,14 @@ require('./manifest.json');
 //css
 import '../css/font.css';
 import '../css/input.css';
-import '../css/main.css';
-import '../css/main-overlay.css';
-import '../css/sideNavigation.css';
+//import '../css/main.css';
+//import '../css/main-overlay.css';
+import '../css/layout.css';
+import '../css/buttons.css';
+import '../css/drop-down.css';
+import '../css/color-selector.css';
+import '../css/range.css';
+//import '../css/sideNavigation.css';
 //images
 require('../images/icons/icon-512x512.png');
 require('../images/icons/icon-384x384.png');
@@ -49,12 +54,16 @@ sideNav.showSideNav(); */
 
 let locationLookupCallback = () => {
     //set up the poster and pass in th map (we only want one instance)
+
+
     let posterStyling = new PosterStyling(map);
     let locationLookup = new LocationLookup(posterStyling, map);
     //locationLookup.locationLookupLoaded();
     let canvasClass = new CanvasClass(1800, 2400);
-
+    
 }
+
+
 
 
 

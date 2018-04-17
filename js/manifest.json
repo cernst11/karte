@@ -3,7 +3,7 @@
   "name": "Karte Map Poster Generator",
   "theme_color" : "#7B1FA2",
   "background_color": "#FFFFFF",
-  "display" : "fullscreen",
+
   "icons": [
     {
       "src": "../images/icons/icon-72x72.png",

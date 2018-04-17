@@ -1,4 +1,4 @@
-
+/* 
 @font-face {
 	font-family: 'Montserrat';
 	src: url('../fonts/Montserrat-LightItalic.ttf') format('truetype');
@@ -124,3 +124,10 @@
 	font-weight: 500;
 	font-style: italic;
 }
+ */
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+
+
+
+

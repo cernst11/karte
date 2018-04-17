@@ -189,112 +189,11 @@ body {
 
 
 
-.section-label {
-    padding-top: 25px;
-    font-family: Roboto;
-}
 
 
-/*Selector*/
-
-select {
-    font-family: inherit;
-    background-color: transparent;
-    width: 100%;
-    padding: 4px 0;
-    font-size: 16px;
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-}
 
 
-/* Remove focus */
 
-select:focus {
-    outline: none;
-}
-
-
-/* Remove deafult arrow */
-
-.style-selector-container{
-    padding-bottom: 10px;
-}
-
-.style-selector-container select {
-
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-
-.style-selector-container {
-    font-family: 'Roboto', sans-serif;
-    position: relative;
-    width: 90%;
-
-}
-
-.style-selector-container:after {
-    position: absolute;
-    top: 0.75em;
-    right: 0.5em;
-    width: 0;
-    height: 0;
-    padding: 0;
-    content: '';
-    border-left: .25em solid transparent;
-    border-right: .25em solid transparent;
-    border-top: 0.375em solid rgba(0, 0, 0, 0.12);
-    pointer-events: none;
-}
-
-.overlay-controls {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-}
-.overlay-controls  div{
-    padding-bottom: 10px;
-}
-
-.overlay-controls span {
-    padding-right: 5px;
-}
-
-input[type="color"] {
-    -webkit-appearance: none;
-    display: inline-block;
-    border: none;
-    width: 20px;
-    height: 20px;
-    padding: 0px;
-}
-
-input[type="color"]::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-
-input[type="color"]::-webkit-color-swatch {
-    border: none;
-}
-
-.color-picker-section {
-    max-width: 90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.color-picker-section span{
-    font-size: 14px;
-}
-
-.slider-input {
-    max-width: 20%;
-    padding: 0px;
-    margin-top: 10px;
-}
 
 .style-subsection-header {
     padding: 5px 0px;
@@ -302,45 +201,9 @@ input[type="color"]::-webkit-color-swatch {
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.style-subsection-header span{
-    font-size: 15px;
-}
-
-input[type=range] {
-    -webkit-appearance: none;
-    height: 1px;
-    border: 1px solid var(--accent-color);
-    background-color: var(--accent-color);
-}
-
-input[type=range]:focus {
-    outline: none;
-    /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
-}
-
-input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: 1px solid #000000;
-    height: 10px;
-    width: 10px;
-    border-radius: 10px;
-    background: #ffffff;
-    cursor: pointer;
-    /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-}
 
 
-/* All the same stuff for Firefox */
 
-input[type=range]::-moz-range-thumb {
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    border: 1px solid #000000;
-    height: 10px;
-    width: 10px;
-    border-radius: 10px;
-    background: #ffffff;
-    cursor: pointer;
-}
 
 #overlay {
     position: fixed;

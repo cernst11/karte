@@ -1,5 +1,10 @@
 import Styles from './Styles'
 import Worker from "./dataTransformations/googleLocationToGeoJson.worker.js";
+import Fabric from 'Fabric'
+import FontFaceObserver from 'FontFaceObserver';
+import autoBind from 'auto-bind'
+import FileSaver from 'file-Saver';
+import PosterStylingPojo from './PosterStylingPojo';
 
 
 /**
@@ -10,16 +15,12 @@ export default class PosterStyling {
     constructor(map) {
         this.styles = new Styles;
         this.map = map.map;
+
         //get inputs
         this.cityInput = document.querySelector('#city');
         this.countryInput = document.querySelector('#country');
         this.locationInput = document.querySelector('#location');
         this.locationDataInput = document.querySelector('#data-file');
-
-        //get overlay fields
-        this.cityOverlay = document.querySelector('.city-overlay');
-        this.countryOverlay = document.querySelector('.country-overlay');
-        this.locationOverlay = document.querySelector('.coord-overlay');
 
         this.html = document.getElementsByTagName('html')[0];
 
@@ -29,72 +30,45 @@ export default class PosterStyling {
         this.gradientColorPicker = document.querySelector('.gradient-color-picker');
         this.ornamentalPosition = document.querySelector('.ornamental-position');
         this.ornamentalSize = document.querySelector('.ornamental-size');
+        this.exportBtn = document.querySelector('.overlay-export');
 
         //bind this to this context
-        this.updateCity = this.updateCity.bind(this);
-        this.updateLocation = this.updateLocation.bind(this);
-        this.updateCountry = this.updateCountry.bind(this);
+        this.posterStylingPojo = new PosterStylingPojo(2400, 1800)
 
-        //bind control elements
-        this.setTextColor = this.setTextColor.bind(this);
-        this.setStyle = this.setStyle.bind(this);
-        this.setOrnamentalColor = this.setOrnamentalColor.bind(this);
-        this.setGradientColor = this.setGradientColor.bind(this);
-        this.setOrnamentalPosition = this.setOrnamentalPosition.bind(this);
-        this.setOrnamentalSize = this.setOrnamentalSize.bind(this);
-        this.setLocationData = this.setLocationData.bind(this);
-        this.showHeatMap = this.showHeatMap.bind(this);
+        autoBind(this);
 
         //add event listeners
+        this.pojoProxy = this.handler();
         this.createStyleSelector();
         this.addEventListeners();
+        this.createOverlayCanvas()
 
 
     }
 
 
     addEventListeners() {
-        this.cityInput.addEventListener('keyup', this.updateCity);
-        this.countryInput.addEventListener('keyup', this.updateCountry);
-        this.locationInput.addEventListener('keyup', this.updateLocation);
+
+        this.addListenerMulti(this.cityInput, 'change input keyup keypress', this.updateText);
+        this.addListenerMulti(this.countryInput, 'change input keyup keypress', this.updateText);
+        this.addListenerMulti(this.locationInput, 'change input keyup keypress', this.updateText);
         this.textColorPicker.addEventListener("change", this.setTextColor, false);
         this.ornamentalColorPicker.addEventListener("change", this.setOrnamentalColor, false);
         this.gradientColorPicker.addEventListener("change", this.setGradientColor, false);
         this.ornamentalPosition.addEventListener("input", this.setOrnamentalPosition, false);
         this.ornamentalSize.addEventListener("input", this.setOrnamentalSize, false);
         this.locationDataInput.addEventListener("change", this.setLocationData, false)
+        this.exportBtn.addEventListener("click", this.exportCanvas);
     }
 
-    updateCity() {
-        this.cityOverlay.innerHTML = this.cityInput.value;
-        this.city = this.cityInput.value;
-
-    }
-    updateLocation() {
-        this.locationOverlay.innerHTML = this.locationInput.value;
-        this.location = this.locationInput.value;
-
-    }
-    updateCountry() {
-        this.countryOverlay.innerHTML = this.countryInput.value;
-        this.country = this.countryInput.value;
-
+    addListenerMulti(el, s, fn) {
+        s.split(' ').forEach(e => el.addEventListener(e, fn, false));
     }
 
-    set city(city) {
-        this.cityOverlay.innerHTML = city;
-        this.cityInput.value = city;
 
-    }
-    set country(country) {
-        this.countryOverlay.innerHTML = country;
-        this.countryInput.value = country;
-
-    }
-    set location(location) {
-        this.locationOverlay.innerHTML = location;
-        this.locationInput.value = location;
-
+    updateText(e) {
+        const target = e.target.id;
+        this.pojoProxy[target].text = e.target.value;
     }
 
     async setLocationData(e) {
@@ -103,7 +77,7 @@ export default class PosterStyling {
         const reader = new FileReader();
         reader.readAsText(file, 'UTF-8');
         let worker = new Worker();
-        reader.onload = async(e) => {
+        reader.onload = async (e) => {
             worker.postMessage(JSON.parse(e.target.result));
             worker.onmessage = this.showHeatMap;
             e = {};
@@ -117,11 +91,11 @@ export default class PosterStyling {
         //Heatmap layers also work with a vector tile source.
         let i = 0;
         e.data.forEach(subDataSet => {
-            this.map.addSource('layer' + i , {
+            this.map.addSource('layer' + i, {
                 "type": "geojson",
                 "buffer": 64,
                 "data": subDataSet,
-                "tolerance" : 0.999
+                "tolerance": 0.999
             });
 
             this.map.addLayer({
@@ -164,11 +138,11 @@ export default class PosterStyling {
                     },
                 }
             }, 'waterway-label');
-    
+
             i++;
         });
 
-        
+
     }
 
     formatCoord(lat, long) {
@@ -183,24 +157,36 @@ export default class PosterStyling {
     }
 
     setTextColor(e) {
-        let color = e.target.value;
-        this.html.style.setProperty('--overlay-font-color', color || '#FFFFFF');
+        this.setColor(e, 'text')
     }
     setGradientColor(e) {
-        let color = e.target.value;
-        this.html.style.setProperty('--overlay-gradient-color', color || '#FFFFFF');
+        this.setColor(e, 'gradient');
 
     }
-
     setOrnamentalColor(e) {
-        let color = e.target.value;
-        this.html.style.setProperty('--country-ornamental-color', color || '#FFFFFF');
+        this.setColor(e, 'ornament');
+    }
+
+    setColor(e, filter) {
+        if (filter !== 'gradient') {
+            Object.keys(this.pojoProxy).forEach((key) => {
+                if (this.pojoProxy[key].type === filter) {
+                    this.pojoProxy[key].fill = e.target.value;
+                    this[key].set(this.pojoProxy[key]);
+                }
+            });
+            return true;
+        }
+        this.pojoProxy.gradientFill.colorStops['0'] = e.target.value.substr(1) + '00';
+        this.pojoProxy.gradientFill.colorStops['0.26'] = e.target.value.substr(1);
+        this.pojoProxy.gradientFill.colorStops['1'] = e.target.value.substr(1);
+        this.gradient.setGradient('fill', this.pojoProxy.gradientFill);
+    
 
     }
 
     setOrnamentalPosition(e) {
-        let position = e.target.value;
-        this.html.style.setProperty('--country-ornamental-pos', position + '%' || '106px');
+
     }
 
     setOrnamentalSize(e) {
@@ -239,4 +225,105 @@ export default class PosterStyling {
         this.styleSelector.onchange = this.setStyle;
     }
 
+    createOverlayCanvas() {
+        let mapCanvas = document.querySelector('canvas.mapboxgl-canvas');
+        let overlayCanavas = document.createElement('canvas');
+        overlayCanavas.setAttribute('id', 'overlay-canvas');
+        overlayCanavas.setAttribute('height', 2400);
+        overlayCanavas.setAttribute('width', 1800);
+        mapCanvas.after(overlayCanavas);
+        this.oCanvas = new fabric.Canvas('overlay-canvas');
+
+        this.gradient = new fabric.Rect(this.pojoProxy.gradient);
+        this.gradient.setGradient('fill', this.pojoProxy.gradientFill);
+
+        this.leftOrnament = new fabric.Rect(this.pojoProxy.leftOrnament)
+        this.rightOrnament = new fabric.Rect(this.pojoProxy.rightOrnament)
+
+        this.oCanvas.add(this.gradient);
+        this.oCanvas.add(this.leftOrnament);
+        this.oCanvas.add(this.rightOrnament);
+
+
+
+        this.city = new fabric.Textbox('BERLIN',
+            this.pojoProxy.city
+        );
+        this.country = new fabric.Textbox('GERMANY',
+            this.pojoProxy.country
+        );
+        this.location = new fabric.Textbox('52.5200° N / 13.4050° E',
+            this.pojoProxy.location
+        );
+
+        this.oCanvas.on('text:changed', function (opt) {
+            console.log('Scaling');
+            var t1 = this.city;
+            if (t1.width > t1.fixedWidth) {
+                t1.fontSize *= t1.fixedWidth / (t1.width + 1);
+                t1.width = t1.fixedWidth;
+            }
+        });
+
+        this.loadFont(this.city, this.oCanvas)
+        this.loadFont(this.country, this.oCanvas)
+        this.loadFont(this.location, this.oCanvas)
+    }
+
+    loadFont(textbox, canvas, font = 'Montserrat') {
+        let myFont = new FontFaceObserver(font);
+        myFont.load().then(() => {
+            canvas.add(textbox);
+            textbox.centerH();
+            textbox.set("fontFamily", font);
+            canvas.requestRenderAll();
+        }).catch((e) => {
+            console.log(e);
+        })
+    }
+
+    exportCanvas() {
+
+    }
+
+    handler() {
+        let target = {}
+        let that = this;
+        let handler = {
+            get(target, key) {
+                if (typeof target[key] === 'object' && target[key] !== null) {
+                    return new Proxy(target[key], handler);
+                }
+                return target[key];
+            },
+            set(target, key, value) {
+
+                switch (key) {
+                    case 'text':
+                        target[key] = value.toUpperCase();
+                        break
+                    case 'font':
+                        target[key] = value;
+                    default:
+                        target[key] = value;
+                        break;
+                }
+
+                that.updateOverlay(key);
+                console.log(that.posterStylingPojo);
+                return true
+            }
+        }
+        return new Proxy(this.posterStylingPojo, handler)
+    }
+
+    updateOverlay(changedAttr) {
+        Object.keys(this.pojoProxy).forEach((key) => {
+            if (this.pojoProxy[key].text) {
+                //update the the local canvas objects
+                this[key].set(this.pojoProxy[key]);
+            }
+        })
+        this.oCanvas.requestRenderAll();
+    }
 }
