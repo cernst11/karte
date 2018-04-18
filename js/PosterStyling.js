@@ -34,16 +34,13 @@ export default class PosterStyling {
 
         //bind this to this context
         this.posterStylingPojo = new PosterStylingPojo(2400, 1800)
-
         autoBind(this);
 
         //add event listeners
         this.pojoProxy = this.handler();
         this.createStyleSelector();
         this.addEventListeners();
-        this.createOverlayCanvas()
-
-
+        this.createOverlayCanvas();
     }
 
 
@@ -64,7 +61,6 @@ export default class PosterStyling {
     addListenerMulti(el, s, fn) {
         s.split(' ').forEach(e => el.addEventListener(e, fn, false));
     }
-
 
     updateText(e) {
         const target = e.target.id;
@@ -142,56 +138,58 @@ export default class PosterStyling {
             i++;
         });
 
-
     }
 
     formatCoord(lat, long) {
         return ` ${lat.toFixed(4)}° ${lat < 0 ? 'S' : 'N'} / ${Math.abs(long.toFixed(4))}° ${long <  0 ? 'W' : 'E'}`;
     }
 
-    setOverlayStyle(style) {
-        //get the root html to modify the css vars   
-        this.html.style.setProperty('--overlay-font-color', style.textColor || '#FFFFFF');
-        this.html.style.setProperty('--country-ornamental-color', style.ornamentalColor || '#FFFFFF');
-        this.html.style.setProperty('--overlay-gradeint-color', style.gradientColor);
-    }
-
     setTextColor(e) {
-        this.setColor(e, 'text')
+        this.setColor(e.target.value, 'text')
     }
+
     setGradientColor(e) {
-        this.setColor(e, 'gradient');
-
+        this.setColor(e.target.value, 'gradient');
     }
+
     setOrnamentalColor(e) {
-        this.setColor(e, 'ornament');
+        this.setColor(e.target.value, 'ornament');
     }
 
-    setColor(e, filter) {
-        if (filter !== 'gradient') {
-            Object.keys(this.pojoProxy).forEach((key) => {
-                if (this.pojoProxy[key].type === filter) {
-                    this.pojoProxy[key].fill = e.target.value;
-                    this[key].set(this.pojoProxy[key]);
-                }
-            });
+    setColor(value, filter) {
+     
+        if (filter === 'gradient') {
+            this.setGradientColorValue(value);
             return true;
         }
-        this.pojoProxy.gradientFill.colorStops['0'] = e.target.value.substr(1) + '00';
-        this.pojoProxy.gradientFill.colorStops['0.26'] = e.target.value.substr(1);
-        this.pojoProxy.gradientFill.colorStops['1'] = e.target.value.substr(1);
-        this.gradient.setGradient('fill', this.pojoProxy.gradientFill);
-    
+        Object.keys(this.pojoProxy).forEach((key) => {
+            if (this.pojoProxy[key].type === filter) {
+                this.pojoProxy[key].fill = value;
+            }
+        });    
+    }
 
+    setGradientColorValue(value){
+        this.pojoProxy.gradientFill.colorStops['0'] = value.substr(1) + '00';
+        this.pojoProxy.gradientFill.colorStops['0.26'] = value.substr(1);
+        this.pojoProxy.gradientFill.colorStops['1'] = value.substr(1);
+        this.gradient.setGradient('fill', this.pojoProxy.gradientFill);
     }
 
     setOrnamentalPosition(e) {
-
+        const value = e.target.value;
+        this.pojoProxy.leftOrnament.left = parseInt(value);
+        this.pojoProxy.rightOrnament.left = this.pojoProxy.canvasW - value;
+        this.leftOrnament.set(this.pojoProxy.leftOrnament);
+        this.rightOrnament.set(this.pojoProxy.rightOrnament);
     }
 
     setOrnamentalSize(e) {
-        let size = e.target.value;
-        this.html.style.setProperty('--country-ornamental-width', size + 'em' || '3em');
+        const value = e.target.value;
+        this.pojoProxy.leftOrnament.width = parseInt(value);
+        this.pojoProxy.rightOrnament.width = parseInt(value);
+        this.leftOrnament.set(this.pojoProxy.leftOrnament);
+        this.rightOrnament.set(this.pojoProxy.rightOrnament);
     }
 
     /**
@@ -205,12 +203,10 @@ export default class PosterStyling {
     }
 
     setOverlayStyle(style) {
-        //get the root html to modify the css vars   
-        this.html.style.setProperty('--overlay-font-color', style.textColor || '#FFFFFF');
-        this.html.style.setProperty('--country-ornamental-color', style.ornamentalColor || '#FFFFFF');
-        this.html.style.setProperty('--overlay-gradient-color', style.gradientColor);
-        this.html.style.setProperty('--country-ornamental-width', style.ornamentalWidth);
-        this.html.style.setProperty('--country-ornamental-pos', style.ornamentalPostition);
+        console.log(style);
+        this.setColor(style.textColor, 'text');
+        this.setColor(style.ornamentalColor , 'ornament');
+        this.setColor(style.gradientColor , 'gradient');
     }
 
 
@@ -231,6 +227,7 @@ export default class PosterStyling {
         overlayCanavas.setAttribute('id', 'overlay-canvas');
         overlayCanavas.setAttribute('height', 2400);
         overlayCanavas.setAttribute('width', 1800);
+        let c = `<canvas id="overlay-canvas" height="${2400}" width="${1800}"></canvas>`
         mapCanvas.after(overlayCanavas);
         this.oCanvas = new fabric.Canvas('overlay-canvas');
 
@@ -243,7 +240,6 @@ export default class PosterStyling {
         this.oCanvas.add(this.gradient);
         this.oCanvas.add(this.leftOrnament);
         this.oCanvas.add(this.rightOrnament);
-
 
 
         this.city = new fabric.Textbox('BERLIN',
@@ -273,7 +269,7 @@ export default class PosterStyling {
     loadFont(textbox, canvas, font = 'Montserrat') {
         let myFont = new FontFaceObserver(font);
         myFont.load().then(() => {
-            canvas.add(textbox);
+            canvas.add(textbox)
             textbox.centerH();
             textbox.set("fontFamily", font);
             canvas.requestRenderAll();
@@ -310,20 +306,18 @@ export default class PosterStyling {
                 }
 
                 that.updateOverlay(key);
-                console.log(that.posterStylingPojo);
                 return true
             }
         }
         return new Proxy(this.posterStylingPojo, handler)
     }
 
-    updateOverlay(changedAttr) {
+    updateOverlay() {
         Object.keys(this.pojoProxy).forEach((key) => {
-            if (this.pojoProxy[key].text) {
-                //update the the local canvas objects
+            if (key in this)
                 this[key].set(this.pojoProxy[key]);
-            }
         })
+        this.gradient.setGradient('fill', this.pojoProxy.gradientFill);
         this.oCanvas.requestRenderAll();
     }
 }

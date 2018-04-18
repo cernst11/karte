@@ -35,7 +35,7 @@ export default class PosterStylingPojo {
             top: this.canvasH * .87,
             width: this.canvasW,
             fontSize: 55,
-            fontWeight: 100,
+            fontWeight: 50,
             charSpacing: 100,
             fontFamily: 'Montserrat',
             fill:'black'
@@ -44,15 +44,16 @@ export default class PosterStylingPojo {
         this.leftOrnament = {
             type: 'ornament',
             top: (this.canvasH * .80) + 50,
-            left: 160,
+            left: 170,
             width: 250,
             height: 10,
             fill: 'black'
         };
         this.rightOrnament = {
             type: 'ornament',
+            originX: 'right',
             top: (this.canvasH * .80) + 50,
-            left: this.canvasW-this.leftOrnament.width-this.leftOrnament.left,
+            left: this.canvasW-this.leftOrnament.left,
             width: 250,
             height: 10,
             fill: 'black'

@@ -163,9 +163,7 @@ body {
 	height: 2400px;
 	width: 1800px;
 }
-#overlay-grad-canvas {
-	z-index:5;
-}
+
 
 .canvas-container{
 	position: absolute !important;
