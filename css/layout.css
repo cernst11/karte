@@ -8,7 +8,7 @@
 	--cont-div-width: 450px;
 	--cont-div-height: 600px;
 	--map-width: 1800px;
-	--scale-ratio :0.25;
+	--scale-ratio: 0.25;
 }
 
 html {
@@ -33,34 +33,36 @@ body {
 }
 
 /* Controls layout and design*/
-.section-label {
-    padding-top: 25px;
-    font-family: Roboto;
-}
-
-.style-subsection-header span{
-    font-size: 15px;
-}
 
 .section-label {
-    padding-top: 25px;
-    font-family: Roboto;
+	padding-top: 25px;
+	font-family: Roboto;
+}
+
+.style-subsection-header span {
+	font-size: 15px;
+}
+
+.section-label {
+	padding-top: 25px;
+	font-family: Roboto;
 }
 
 .overlay-controls {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
 }
-.overlay-controls  div{
-    padding-bottom: 10px;
+
+.overlay-controls div {
+	padding-bottom: 10px;
 }
 
 .overlay-controls span {
-    padding-right: 5px;
+	padding-right: 5px;
 }
 
-.controls{
+.controls {
 	display: flex;
 	flex-direction: column;
 }
@@ -84,7 +86,6 @@ body {
 	overflow: hidden;
 }
 
-
 /*General layout*/
 
 /* grid */
@@ -104,21 +105,19 @@ body {
 	background-color: white;
 }
 
-
 @media only screen and (min-width: 960px) {
 	body {
 		grid-template-columns: 1fr auto 25em;
 		grid-template-rows: 3em 1fr auto;
 		grid-template-areas: "main main header" "main main secondary";
 	}
-
 }
+
 @media only screen and (max-width: 959px) {
 	.secondary {
-		padding-top: 25px; 
+		padding-top: 25px;
 		grid-area: secondary;
 		display: flex;
-		
 	}
 	.controls {
 		display: flex;
@@ -126,7 +125,7 @@ body {
 		justify-content: space-evenly;
 		flex-wrap: wrap;
 	}
-	#loc-input{
+	#loc-input {
 		padding-right: 50px;
 	}
 }
@@ -146,25 +145,44 @@ body {
 }
 
 .secondary {
-	padding-top: 30px; 
+	padding-top: 30px;
 	grid-area: secondary;
 	display: flex;
 	justify-content: center;
 }
 
-
 /**/
 
-#overlay-canvas, #overlay-grad-canvas {
+#overlay-canvas,
+#overlay-grad-canvas {
 	position: absolute;
-    left: 0px;
-    top: 0px;
+	left: 0px;
+	top: 0px;
 	z-index: 10;
 	height: 2400px;
 	width: 1800px;
 }
 
-
-.canvas-container{
+.canvas-container {
 	position: absolute !important;
+}
+
+.card-1 {
+	box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+}
+
+.card-2 {
+	box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
+}
+
+.card-3 {
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.23), 0 10px 40px rgba(0, 0, 0, 0.19);
+}
+
+.card-4 {
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22), 0 14px 56px rgba(0, 0, 0, 0.25);
+}
+
+.card-5 {
+	box-shadow: 0 15px 24px rgba(0, 0, 0, 0.22), 0 19px 76px rgba(0, 0, 0, 0.3);
 }
