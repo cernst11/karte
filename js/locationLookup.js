@@ -1,4 +1,3 @@
-import CanvasClass from './CanvasClass';
 import PosterStyling from './PosterStyling';
 import mapboxgl from 'mapbox-gl';
 

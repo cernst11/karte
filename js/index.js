@@ -1,6 +1,6 @@
 //Internal classes
 import "babel-polyfill";
-import CanvasClass from './CanvasClass';
+import CanvasExport from './CanvasExport';
 import LocationLookup from './LocationLookup';
 import Map from './Map.js';
 import PosterStyling from './PosterStyling';
@@ -39,13 +39,14 @@ require('../images/icons/icon-96x96.png');
 require('../images/icons/icon-72x72.png');
 
 
-(function updateDPI() {
-    Object.defineProperty(window, 'devicePixelRatio', {
-        get: function () {
-            return 300 / 96
-        }
-    });
-})();
+let precisionRound = (number, precision) => {
+    var factor = Math.pow(10, precision);
+    return Math.round(number * factor) / factor;
+}
+const roundedPixelRatio = precisionRound(window.devicePixelRatio,2)
+const pixelRatio = 300/(roundedPixelRatio*96);
+console.log('scale: ' + pixelRatio)
+window.devicePixelRatio = pixelRatio;
 
 
 let map = new Map(keys.mapBox);
@@ -54,12 +55,10 @@ sideNav.showSideNav(); */
 
 let locationLookupCallback = () => {
     //set up the poster and pass in th map (we only want one instance)
-
-
     let posterStyling = new PosterStyling(map);
     let locationLookup = new LocationLookup(posterStyling, map);
     //locationLookup.locationLookupLoaded();
-    let canvasClass = new CanvasClass(1800, 2400);
+    let canvasClass = new CanvasExport(1800, 2400);
     
 }
 

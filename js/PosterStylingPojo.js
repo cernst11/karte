@@ -1,15 +1,17 @@
 export default class PosterStylingPojo {
-    constructor(canvasHeight, canvasWidth) {
+    constructor(canvasHeight, canvasWidth, ratio) {
 
-        this.canvasH = 2400;
-        this.canvasW = 1800;  
+        this.canvasH = 7500;
+        this.canvasW = 5625;   
+        this.ratio = window.devicePixelRatio;
+
         this.country = {
             type: 'text',
             text: 'GERMANY',
             textAlign: 'center',
             top: this.canvasH * .80,
             width: this.canvasW ,
-            fontSize: 100,
+            fontSize: (100 * this.ratio),
             charSpacing:500,
             fontFamily: 'Montserrat',
             fill:'black'
@@ -21,7 +23,7 @@ export default class PosterStylingPojo {
             textAlign: 'center',
             top: this.canvasH * .70,
             width: this.canvasW ,
-            fontSize: 190,
+            fontSize: 190 * this.ratio,
             charSpacing:200,
             fixedWidth: this.canvasW,
             fontFamily: 'Montserrat',
@@ -34,7 +36,7 @@ export default class PosterStylingPojo {
             textAlign: 'center',
             top: this.canvasH * .87,
             width: this.canvasW,
-            fontSize: 55,
+            fontSize: 55 * this.ratio,
             fontWeight: 50,
             charSpacing: 100,
             fontFamily: 'Montserrat',
@@ -44,8 +46,8 @@ export default class PosterStylingPojo {
         this.leftOrnament = {
             type: 'ornament',
             top: (this.canvasH * .80) + 50,
-            left: 170,
-            width: 250,
+            left: 170 * this.ratio,
+            width: 250 * this.ratio,
             height: 10,
             fill: 'black'
         };
@@ -53,18 +55,18 @@ export default class PosterStylingPojo {
             type: 'ornament',
             originX: 'right',
             top: (this.canvasH * .80) + 50,
-            left: this.canvasW-this.leftOrnament.left,
-            width: 250,
-            height: 10,
+            left: this.canvasW-(170 * this.ratio),
+            width: 250 * this.ratio,
+            height: 10 ,
             fill: 'black'
         };
 
         this.gradient = {
             type: 'gradient',
-            top: this.canvasH-700,
+            top: this.canvasH-700 * this.ratio,
             left: 0,
             width: this.canvasW,
-            height: 700,
+            height: 700 * this.ratio,
             fill: 'FFFFFF',
         }
 

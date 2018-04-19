@@ -194,3 +194,8 @@ body {
     z-index: 1000000;
     background: rgba(0, 0, 0, 0.38);
   }
+
+  #overlay-canvas{
+	  width:1800px!important;
+	  height: 2400px!important;
+  }

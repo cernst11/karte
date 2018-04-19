@@ -69,12 +69,12 @@ export default class CanvasClass {
      * @param {Number} [width] The width of the canvas
      * @param {Number} [height] The height of the canvas
      */
-    async createCompositeCanvas(mime, width = 5625, height = 7500) {
+    async createCompositeCanvas(mime) {
         this.drawOverlay()
         let canvas = document.createElement('canvas');
         canvas.id = "compositeCanvas";
-        canvas.width = width;
-        canvas.height = height;
+        canvas.width = this.canvas.width;
+        canvas.height = this.canvas.height;
         canvas.style.zIndex = 8;
         document.body.appendChild(canvas);
 
