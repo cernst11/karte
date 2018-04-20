@@ -188,14 +188,28 @@ body {
 }
 
 #overlay {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    z-index: 1000000;
-    background: rgba(0, 0, 0, 0.38);
-  }
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	z-index: 1000000;
+	background: rgba(0, 0, 0, 0.38);
+}
 
-  #overlay-canvas{
-	  width:1800px!important;
-	  height: 2400px!important;
-  }
+#overlay-canvas {
+	width: 1800px !important;
+	height: 2400px !important;
+}
+
+.text-style-container{
+	margin-top: 15px;
+	width:300px;
+	display: flex;
+	flex-direction: row;
+}
+
+.text-style-container select{
+	margin-right: 10px;
+}
+.text-style-container span{
+	margin-right: 10px;
+}

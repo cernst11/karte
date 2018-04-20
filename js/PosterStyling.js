@@ -15,6 +15,8 @@ export default class PosterStyling {
     constructor(map) {
         this.styles = new Styles;
         this.map = map.map;
+        this.scale = window.devicePixelRatio;
+
 
         //get inputs
         this.cityInput = document.querySelector('#city');
@@ -25,14 +27,11 @@ export default class PosterStyling {
         this.html = document.getElementsByTagName('html')[0];
 
         //get control elements
-        this.textColorPicker = document.querySelector('.text-color-picker');
         this.ornamentalColorPicker = document.querySelector('.ornamental-color-picker');
         this.gradientColorPicker = document.querySelector('.gradient-color-picker');
         this.ornamentalPosition = document.querySelector('.ornamental-position');
         this.ornamentalSize = document.querySelector('.ornamental-size');
         this.exportBtn = document.querySelector('.overlay-export');
-
-        this.changeFont = document.querySelector('.font-select');
 
         //bind this to this context
         this.posterStylingPojo = new PosterStylingPojo(2400, 1800, window.devicePixelRatio)
@@ -43,31 +42,56 @@ export default class PosterStyling {
         this.createStyleSelector();
         this.addEventListeners();
         this.createOverlayCanvas();
+        this.bindInputEvents();
+        this.bindFontEvents();
+        //this.bindColorEvents();
     }
 
 
     addEventListeners() {
-
-        this.addListenerMulti(this.cityInput, 'change input keyup keypress', this.updateText);
-        this.addListenerMulti(this.countryInput, 'change input keyup keypress', this.updateText);
-        this.addListenerMulti(this.locationInput, 'change input keyup keypress', this.updateText);
-        this.textColorPicker.addEventListener('change', this.setTextColor, false);
         this.ornamentalColorPicker.addEventListener('change', this.setOrnamentalColor, false);
         this.gradientColorPicker.addEventListener('change', this.setGradientColor, false);
         this.ornamentalPosition.addEventListener('input', this.setOrnamentalPosition, false);
         this.ornamentalSize.addEventListener('input', this.setOrnamentalSize, false);
         this.locationDataInput.addEventListener('change', this.setLocationData, false);
-        this.changeFont.onchange = this.setFont;
-
     }
 
     addListenerMulti(el, s, fn) {
-        s.split(' ').forEach(e => el.addEventListener(e, fn, false));
+        //console.log(s);
+        let  events = s.split(',');
+        console.log(events);
+        events.forEach(e => el.addEventListener(e, fn, false));
     }
 
-    updateText(e) {
-        const target = e.target.id;
-        this.pojoProxy[target].text = e.target.value;
+    bindInputEvents() {
+        const elements = document.querySelectorAll('input[data-k-attr="text"], input[data-k-attr="fill"]');
+        elements.forEach((el) => {
+            const events = el.dataset.kEvents === undefined ? 'change' : el.dataset.kEvents;
+            this.addListenerMulti(el, events, this.updateCanvasElement);
+        })
+    }
+
+    bindFontEvents() {
+        const elements = document.querySelectorAll('select[data-k-attr="fontFamily"]');
+        elements.forEach((el) => {
+            el.onchange = this.updateCanvasElement
+        })
+    }
+
+    async updateCanvasElement(e) {
+        const target = e.target.dataset.kCanvasElement;
+        const elementAttr = e.target.dataset.kAttr;
+        const value = e.target.value;
+        console.group('Canvas Attributes');
+        console.log(target)
+        console.log(elementAttr);
+        console.log(value);
+        console.groupEnd();
+        if (elementAttr === 'fontFamily') {
+            const myFont = new FontFaceObserver(e.target.value);
+            await myFont.load();
+        }
+        this.pojoProxy[target][elementAttr] = e.target.value;
     }
 
     async setLocationData(e) {
@@ -236,33 +260,24 @@ export default class PosterStyling {
     createOverlayCanvas() {
         let mapCanvas = document.querySelector('canvas.mapboxgl-canvas');
         let overlayCanavas = document.createElement('canvas');
-        overlayCanavas.id='overlay-canvas';
+        overlayCanavas.id = 'overlay-canvas';
         overlayCanavas.width = 1800;
         overlayCanavas.height = 2400;
-
         mapCanvas.after(overlayCanavas);
-  
         const ctx = overlayCanavas.getContext('2d');
         overlayCanavas.width = 1800 * window.devicePixelRatio;
         overlayCanavas.height = 2400 * window.devicePixelRatio;
         ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
 
-  
-
         this.oCanvas = new fabric.Canvas('overlay-canvas');
-
-
-
         this.gradient = new fabric.Rect(this.pojoProxy.gradient);
         this.gradient.setGradient('fill', this.pojoProxy.gradientFill);
-
         this.leftOrnament = new fabric.Rect(this.pojoProxy.leftOrnament)
         this.rightOrnament = new fabric.Rect(this.pojoProxy.rightOrnament)
 
         this.oCanvas.add(this.gradient);
         this.oCanvas.add(this.leftOrnament);
         this.oCanvas.add(this.rightOrnament);
-
 
         this.city = new fabric.Textbox('BERLIN',
             this.pojoProxy.city
@@ -273,15 +288,6 @@ export default class PosterStyling {
         this.location = new fabric.Textbox('52.5200° N / 13.4050° E',
             this.pojoProxy.location
         );
-
-        this.oCanvas.on('text:changed', function (opt) {
-            console.log('Scaling');
-            var t1 = this.city;
-            if (t1.width > t1.fixedWidth) {
-                t1.fontSize *= t1.fixedWidth / (t1.width + 1);
-                t1.width = t1.fixedWidth;
-            }
-        });
 
         this.loadFont(this.city, this.oCanvas)
         this.loadFont(this.country, this.oCanvas)
@@ -320,37 +326,20 @@ export default class PosterStyling {
             set(target, key, value) {
                 console.log(`key ${key}`);
                 switch (key) {
-
                     case 'text':
                         target[key] = value.toUpperCase();
-                        that.updateOverlay();
                         break
-                    case 'fontFamily':
-                        let myFont = new FontFaceObserver(value);
-                        myFont.load().then(() => {
-                            console.log('loading font ' + value);
-                            target[key] = value;
-                            that.updateOverlay();
-                        }).catch((e) => {
-                            console.log(e);
-                        });
-                        break;
                     default:
                         target[key] = value;
-                        that.updateOverlay();
                         break;
                 }
-
+                that.updateOverlay();
                 console.log(that.pojoProxy);
-
                 return true
             }
         }
         return new Proxy(this.posterStylingPojo, handler)
     }
-
-
-
     updateOverlay() {
         Object.keys(this.pojoProxy).forEach((key) => {
             if (key in this)

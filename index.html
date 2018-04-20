@@ -24,7 +24,7 @@
         <div class="wrapper card-2">
 
             <div id="map" class="map" style='width: 1800px; height: 2400px;'> </div>
-            
+
         </div>
     </main>
     <aside class="secondary card-2">
@@ -44,22 +44,55 @@
                     </div> -->
 
                 <div class="group">
-                    <input id="city" placeholder="" value="Berlin" required>
+                    <input data-k-canvas-element="city" data-k-attr="text" data-k-events="change,input,keyup,paste" id="city" placeholder="" value="Berlin" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>City Name</label>
+                    <div class="text-style-container">
+                        <span>Font:</span>
+                        <select data-k-canvas-element="city" data-k-attr="fontFamily" class="font-select" name="update-fonts">
+                            <option value="Montserrat">Montserrat</option>
+                            <option value="Fira Sans">Fira Sans</option>
+                            <option value="Lobster">Lobster</option>
+                            <option value="Gamja Flower">Gamja Flower</option>
+                        </select>
+                        <span>Color:</span>
+                        <input aria-label="City Color Selection" data-k-canvas-element="city" data-k-attr="fill"  type="color">
+                    </div>
                 </div>
                 <div class="group">
-                    <input id="country" placeholder="" value="Germany" required>
+                    <input data-k-canvas-element="country" data-k-attr="text" data-k-events="change,input,keyup,paste" id="country" placeholder="" value="Germany" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Country Name</label>
+                    <div class="text-style-container">
+                        <span>Font:</span>
+                        <select data-k-canvas-element="country" data-k-attr="fontFamily" class="font-select" name="update-fonts">
+                            <option value="Montserrat">Montserrat</option>
+                            <option value="Fira Sans">Fira Sans</option>
+                            <option value="Lobster">Lobster</option>
+                            <option value="Gamja Flower">Gamja Flower</option>
+                        </select>
+                        <span>Color:</span>
+                        <input aria-label="Country Color Selection" data-k-canvas-element="country" data-k-attr="fill" type="color">
+                    </div>
                 </div>
                 <div class="group">
-                    <input id="location" placeholder="" value="52.5200° N / 13.4050° E" required>
+                    <input data-k-canvas-element="location" data-k-attr="text" data-k-events="change,input,keyup,paste" id="location" placeholder="" value="52.5200° N / 13.4050° E" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Location Coordinates</label>
+                    <div class="text-style-container">
+                        <span>Font:</span>
+                        <select data-k-canvas-element="country" data-k-attr="fontFamily" class="font-select" name="update-fonts">
+                            <option value="Montserrat">Montserrat</option>
+                            <option value="Fira Sans">Fira Sans</option>
+                            <option value="Lobster">Lobster</option>
+                            <option value="Gamja Flower">Gamja Flower</option>
+                        </select>
+                        <span>Color:</span>
+                        <input aria-label="Country Color Selection" data-k-canvas-element="country" data-k-attr="fill" type="color">
+                    </div>
                 </div>
             </div>
 
@@ -85,23 +118,8 @@
                     </select>
                 </div>
 
-
-                <span class="section-label">Fonts:</span>
-                <div class="style-selector-container">
-                    <select class="font-select" name="update-fonts">
-                        <option value="Montserrat">Montserrat</option>
-                        <option value="Fira Sans">Fira Sans</option>
-                        <option value="Lobster">Lobster</option>
-                        <option value="Gamja Flower">Gamja Flower</option>
-                    </select>
-                </div>
-
                 <div class="overlay-controls">
                     <!--                         <div class="style-subsection-header"><span>Text Styling: </span></div> -->
-                    <div class="color-picker-section">
-                        <span>Text Color: </span>
-                        <input class="text-color-picker" type="color">
-                    </div>
                     <!--        <div class="style-subsection-header"><span>Gradient Styling: </span></div>      -->
                     <div class="color-picker-section">
                         <span>Gradient Color: </span>
@@ -118,7 +136,7 @@
                     </div>
                     <div class="color-picker-section">
                         <span>Width:</span>
-                        <input class="ornamental-size  slider-input" min="0" max="250" type="range">
+                        <input data-k-canvas-element="leftOrnament,rightOrnament" data-k-attr="width" class="ornamental-size  slider-input" min="0" max="250" type="range">
                     </div>
                     <div style="display: none">
                         <input hidden id="data-file" class="data-file" type="file" />
