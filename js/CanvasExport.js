@@ -1,16 +1,14 @@
-import FileSaver from 'file-Saver';
-import html2canvas from 'html2canvas';
-import CanvasToTIFF from './lib/canvasToTIFF/canvastotiff'
-import autoBind from 'auto-bind'
+import fileSaver from 'file-saver';
+import autoBind from 'auto-bind';
+import CanvasToTIFF from './lib/canvasToTIFF/canvastotiff';
 
 
 /**
  * This class deals with exporting the canvas
  */
 export default class CanvasClass {
-
     /**
-     * Construct the data object and methods for the canvas class 
+     * Construct the data object and methods for the canvas class
      * @param {number} width The width of the canvas
      * @param {number} height The height of the canvas
      */
@@ -25,7 +23,6 @@ export default class CanvasClass {
         this.overlayExport = document.querySelector('.overlay-export');
         this.compImageExport = document.querySelector('.comp-image');
         this.exportType = document.querySelector('.export-select');
-        this.cCanvas;
         autoBind(this);
         this.addEventListeners();
     }
@@ -34,20 +31,19 @@ export default class CanvasClass {
         this.mapExport.addEventListener('click', this.exportMapToFile);
         this.overlayExport.addEventListener('click', this.exportOverlayToFile);
         this.compImageExport.addEventListener('click', this.exportCompositeToFile);
-
     }
 
     async canvasToPng(canvas) {
-        return await this.getCanvasBlob(canvas);
+        return this.constructor.getCanvasBlob(canvas);
     }
 
     async canvasToTiff(canvas) {
-        return await this.getCanvasBlobTIFF(canvas);
+        return this.constructor.getCanvasBlobTIFF(canvas);
     }
 
     async writeCanvasToFile(canvas, type = 'png') {
-        let blob = type === 'png' ? await this.canvasToPng(canvas) : await this.canvasToTiff(canvas);
-        FileSaver.saveAs(blob, `file.${type}`);
+        const blob = type === 'png' ? await this.canvasToPng(canvas) : await this.canvasToTiff(canvas);
+        fileSaver.saveAs(blob, `file.${type}`);
     }
 
     async exportMapToFile() {
@@ -60,38 +56,51 @@ export default class CanvasClass {
 
     async exportCompositeToFile() {
         this.createCompositeCanvas(this.getExportType().toLowerCase());
-        //this.writeCanvasToFile(this.canvas, this.getExportType().toLowerCase());
+        // this.writeCanvasToFile(this.canvas, this.getExportType().toLowerCase());
     }
 
-        /**
-     * Composite the two files into a canvas and export the resulting composite 
+    /**
+     * Composite the two files into a canvas and export the resulting composite
      * @param {string} mime export type
      * @param {Number} [width] The width of the canvas
      * @param {Number} [height] The height of the canvas
      */
     async createCompositeCanvas(mime) {
-        this.drawOverlay()
-        let canvas = document.createElement('canvas');
-        canvas.id = "compositeCanvas";
+        // this.constuctor.drawOverlay();
+        const canvas = document.createElement('canvas');
+        canvas.id = 'compositeCanvas';
         canvas.width = this.canvas.width;
         canvas.height = this.canvas.height;
         canvas.style.zIndex = 8;
         document.body.appendChild(canvas);
 
-        let mapImage = new window.Image();
-        var overlayImage = new window.Image();
-        let ctx = canvas.getContext('2d');
+        const mapImage = new window.Image();
+        const overlayImage = new window.Image();
+        const ctx = canvas.getContext('2d');
 
-        mapImage.addEventListener('load', () => {
-            ctx.drawImage(mapImage, 0, 0);
-            ctx.drawImage(overlayImage, 0, 0,
-                overlayImage.width,
-                overlayImage.height,
-                0, 0, canvas.width, canvas.height);
-            this.writeCanvasToFile(canvas, mime);
-            canvas.remove();
-            this.hideOverlay();
-        }, false);
+        mapImage.addEventListener(
+            'load',
+            () => {
+                ctx.drawImage(mapImage, 0, 0);
+                overlayImage.addEventListener('load', () => {
+                    ctx.drawImage(
+                        overlayImage,
+                        0,
+                        0,
+                        overlayImage.width,
+                        overlayImage.height,
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height,
+                    );
+                    this.writeCanvasToFile(canvas, mime);
+                    canvas.remove();
+                    // this.constuctor.hideOverlay();
+                });
+            },
+            false,
+        );
 
         mapImage.src = URL.createObjectURL(await this.canvasToPng(this.canvas));
         overlayImage.src = URL.createObjectURL(await this.canvasToPng(this.oCanvas));
@@ -101,40 +110,46 @@ export default class CanvasClass {
      * Get the canvas context and set perseve drawing buffer to false
      */
     getCanvasContext() {
-        return this.canvas.getContext("experimental-webgl", {
-            preserveDrawingBuffer: false
+        return this.canvas.getContext('experimental-webgl', {
+            preserveDrawingBuffer: false,
         });
     }
 
-    async getCanvasBlob(canvas, type = 'image/png') {
+    static async getCanvasBlob(canvas, type = 'image/png') {
         return new Promise((resolve, reject) => {
             canvas.toBlob((blob) => {
-                resolve(blob)
-            }, type)
-        })
+                resolve(blob);
+                reject(Error('Unable to export to png'));
+            }, type);
+        });
     }
-    async getCanvasBlobTIFF(canvas) {
+    static async getCanvasBlobTIFF(canvas) {
         return new Promise((resolve, reject) => {
-            CanvasToTIFF.toBlob(canvas, blob => {
-                resolve(blob)
-            }, this.tiffExportProperties());
-        })
+            CanvasToTIFF.toBlob(
+                canvas,
+                (blob) => {
+                    resolve(blob);
+                    reject(Error('Unable to export to TIFF'));
+                },
+                this.tiffExportProperties(),
+            );
+        });
     }
 
     compatibilityCheck() {
         if (!this.canvas.toBlob) {
-            this.drawOverlay()
+            this.constuctor.drawOverlay();
         }
     }
 
-    drawOverlay() {
-        let overlay = document.createElement('div');
-        overlay.id = "overlay";
+    static drawOverlay() {
+        const overlay = document.createElement('div');
+        overlay.id = 'overlay';
         document.querySelector('body').appendChild(overlay);
     }
 
-    hideOverlay() {
-        const overlay = document.getElementById("overlay");
+    static hideOverlay() {
+        const overlay = document.getElementById('overlay');
         overlay.parentNode.removeChild(overlay);
     }
 
@@ -145,25 +160,27 @@ export default class CanvasClass {
     /**
      * Export Tiff  propeties
      */
-    tiffExportProperties(compressm, dpi) {
-        return { // options
-            compress: false,
-            dpi: 300,
-            onError: function (e) {
-                console.log("Error:", e)
-            }
-        }
+    static tiffExportProperties(compress = false, dpi = 300) {
+        return {
+            // options
+            compress,
+            dpi,
+            onError(e) {
+                console.log('Error:', e);
+            },
+        };
     }
 
     /**
-     * Helper function to help override the dpi. This exports the image at 300pixels per inch for a 18x24 poster
-     * @param {Number} dpi 
+     * Helper function to help override the dpi
+     * This exports the image at 300pixels per inch for a 18x24 poster
+     * @param {Number} dpi
      */
-    setWindowDPI(dpi = 300) {
+    static setWindowDPI(dpi = 300) {
         Object.defineProperty(window, 'devicePixelRatio', {
-            get: function () {
-                return dpi / 96
-            }
+            get() {
+                return dpi / 96;
+            },
         });
     }
 }
