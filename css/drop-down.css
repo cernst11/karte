@@ -25,7 +25,6 @@ select:focus {
 }
 
 .style-selector-container select {
-
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -34,8 +33,7 @@ select:focus {
 .style-selector-container {
     font-family: 'Roboto', sans-serif;
     position: relative;
-    width: 90%;
-
+    width: 100%;
 }
 
 .style-selector-container:after {

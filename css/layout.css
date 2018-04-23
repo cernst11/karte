@@ -1,9 +1,9 @@
 /*CSS vars*/
 
 :root {
-	--primary-color: #9C27B0;
-	--dark-primary-color: #7B1FA2;
-	--accent-color: #00BCD4;
+	--primary-color: #9c27b0;
+	--dark-primary-color: #7b1fa2;
+	--accent-color: #00bcd4;
 	--map-hieght: 2400px;
 	--cont-div-width: 450px;
 	--cont-div-height: 600px;
@@ -75,12 +75,12 @@ body {
 
 .mapboxgl-canvas-container {
 	display: flex;
-	transform: translateX(calc((var(--map-width) - var(--cont-div-width)) / 2 * -1)) scale(var(--scale-ratio));
+	transform: translateX( calc((var(--map-width) - var(--cont-div-width)) / 2 * -1)) scale(var(--scale-ratio));
 }
 
 .wrapper {
 	margin: 2em 0em;
-	background-color: #00BCD4;
+	background-color: #00bcd4;
 	max-width: var(--cont-div-width);
 	max-height: var(--cont-div-height);
 	overflow: hidden;
@@ -94,11 +94,11 @@ body {
 .main,
 .secondary,
 .header {
-	background-color: var(--primary-color)
+	background-color: var(--primary-color);
 }
 
 .main {
-	background-color: #F0F0F0;
+	background-color: #f0f0f0;
 }
 
 .secondary {
@@ -200,16 +200,7 @@ body {
 	height: 2400px !important;
 }
 
-.text-style-container{
-	margin-top: 15px;
-	width:300px;
-	display: flex;
-	flex-direction: row;
+input.vertical {
+	transform: rotate(90deg);
 }
 
-.text-style-container select{
-	margin-right: 10px;
-}
-.text-style-container span{
-	margin-right: 10px;
-}
