@@ -1,5 +1,5 @@
 import FontFaceObserver from 'fontfaceobserver';
-import Fabric from 'fabric';
+import { fabric } from 'fabric';
 import autoBind from 'auto-bind';
 import Styles from './Styles';
 import Worker from './dataTransformations/googleLocationToGeoJson.worker.js';
@@ -86,7 +86,7 @@ export default class PosterStyling {
     async updateCanvasElement(e) {
         const target = e.target.dataset.kCanvasNode;
         const elementAttr = e.target.dataset.kAttr;
-        const value = e.target.value;
+        const { value } = e.target;
         if (value === 'undefined' || value === '') return;
         console.group('Canvas Attributes');
         console.log(target);
@@ -191,10 +191,10 @@ export default class PosterStyling {
     }
 
     setFont(e) {
-        const font = e.target.value;
+        const { value } = e.target;
         Object.keys(this.pojoProxy).forEach((key) => {
             if (this.pojoProxy[key].type === 'text') {
-                this.pojoProxy[key].fontFamily = font;
+                this.pojoProxy[key].fontFamily = value;
             }
         });
     }
@@ -220,17 +220,19 @@ export default class PosterStyling {
     }
 
     setOrnamentalPosition(e) {
-        const value = e.target.value;
-        this.pojoProxy.leftOrnament.left = parseInt(value);
+        const { value } = e.target;
+        console.log(value);
+        this.pojoProxy.leftOrnament.left = parseInt(value, 10);
+        console.log(this.pojoProxy.leftOrnament.left);
         this.pojoProxy.rightOrnament.left = this.pojoProxy.canvasW - value;
         this.leftOrnament.set(this.pojoProxy.leftOrnament);
         this.rightOrnament.set(this.pojoProxy.rightOrnament);
     }
 
     setOrnamentalSize(e) {
-        const value = e.target.value;
-        this.pojoProxy.leftOrnament.width = parseInt(value);
-        this.pojoProxy.rightOrnament.width = parseInt(value);
+        const { value } = e.target;
+        this.pojoProxy.leftOrnament.width = parseInt(value, 10);
+        this.pojoProxy.rightOrnament.width = parseInt(value, 10);
         this.leftOrnament.set(this.pojoProxy.leftOrnament);
         this.rightOrnament.set(this.pojoProxy.rightOrnament);
     }
@@ -308,7 +310,7 @@ export default class PosterStyling {
                 console.log(e);
             });
     }
-
+    /*eslint-disable */
     /**
      * This needs some TLC
      */
@@ -323,7 +325,7 @@ export default class PosterStyling {
                 return target[key];
             },
             set(target, key, value) {
-                console.log(`key ${key}`);
+                console.log(`key ${key} value ${value}`);
 
                 switch (key) {
                 case 'text':
@@ -347,6 +349,7 @@ export default class PosterStyling {
         };
         return new Proxy(this.posterStylingPojo, handler);
     }
+
     updateOverlay() {
         Object.keys(this.pojoProxy).forEach((key) => {
             if (key in this) {
