@@ -31,6 +31,7 @@ export default class PosterStyling {
 
         // bind this to this context
         this.posterStylingPojo = new PosterStylingPojo(2400, 1800, window.devicePixelRatio);
+       
         autoBind(this);
 
         // add event listeners
@@ -41,6 +42,7 @@ export default class PosterStyling {
         this.bindInputEvents();
         this.bindFontEvents();
         PosterStyling.bindToggles();
+        console.log(this.pojoProxy.ratio);
         // this.bindColorEvents();
     }
 
@@ -95,7 +97,7 @@ export default class PosterStyling {
         console.groupEnd();
         if (elementAttr === 'fontFamily') {
             const myFont = new FontFaceObserver(e.target.value);
-            await myFont.load();
+            await myFont.load(null, 5000);
         }
         this.pojoProxy[target][elementAttr] = e.target.value;
     }
@@ -318,6 +320,9 @@ export default class PosterStyling {
         const target = {};
         const that = this;
         const handler = {
+            construct(target, args) {            
+                return new target(...args);
+            },
             get(target, key) {
                 if (typeof target[key] === 'object' && target[key] !== null) {
                     return new Proxy(target[key], handler);
@@ -332,6 +337,9 @@ export default class PosterStyling {
                     target[key] = value.toUpperCase();
                     break;
                 case 'fontSize':
+                case 'top':
+                    target[key] = parseInt(value) * Math.round(that.scale);
+                    break;
                 case 'width':
                     target[key] = parseInt(value) * Math.round(that.scale);
                     break;

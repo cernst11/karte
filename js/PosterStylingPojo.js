@@ -1,9 +1,8 @@
 export default class PosterStylingPojo {
     constructor(canvasHeight, canvasWidth, ratio) {
-        this.canvasH = 7500;
-        this.canvasW = 5625;
+        this.canvasH = canvasHeight * ratio;
+        this.canvasW = canvasWidth * ratio;
         this.ratio = ratio;
-        this.ratio = window.devicePixelRatio;
 
         this.country = {
             type: 'text',
@@ -77,7 +76,7 @@ export default class PosterStylingPojo {
             x2: 0,
             y2: this.gradient.height,
             colorStops: {
-                0: `${this.gradient.fill  }00`,
+                0: `${this.gradient.fill}00`,
                 0.26: this.gradient.fill,
                 1: this.gradient.fill,
             },

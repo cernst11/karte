@@ -19,15 +19,15 @@ export default class LocationLookup {
         const autoComplete = new google.maps.places.Autocomplete(addressField, options);
         // let that = this;
         autoComplete.addListener('place_changed', () => {
-            this.textOverlay.pojoProxy.country.text = this.getCountryName(autoComplete.getPlace());
-            this.textOverlay.pojoProxy.city.text = this.constructor.getCityName(autoComplete.getPlace());
-            this.textOverlay.pojoProxy.location.text = this.textOverlay.formatCoord(
+            this.textOverlay.pojoProxy.country.text = LocationLookup.getCountryName(autoComplete.getPlace());
+            this.textOverlay.pojoProxy.city.text = LocationLookup.getCityName(autoComplete.getPlace());
+            this.textOverlay.pojoProxy.location.text = this.textOverlay.constructor.formatCoord(
                 autoComplete.getPlace().geometry.location.lat(),
                 autoComplete.getPlace().geometry.location.lng(),
             );
-            this.textOverlay.countryInput.value = this.getCountryName(autoComplete.getPlace());
-            this.textOverlay.cityInput.value = this.constructor.getCityName(autoComplete.getPlace());
-            this.textOverlay.locationInput.value = this.textOverlay.formatCoord(
+            this.textOverlay.countryInput.value = LocationLookup.getCountryName(autoComplete.getPlace());
+            this.textOverlay.cityInput.value = LocationLookup.getCityName(autoComplete.getPlace());
+            this.textOverlay.locationInput.value = this.textOverlay.constructor.formatCoord(
                 autoComplete.getPlace().geometry.location.lat(),
                 autoComplete.getPlace().geometry.location.lng(),
             );
