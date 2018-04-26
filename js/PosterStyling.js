@@ -27,11 +27,12 @@ export default class PosterStyling {
         this.gradientColorPicker = document.querySelector('.gradient-color-picker');
         this.ornamentalPosition = document.querySelector('.ornamental-position');
         this.ornamentalSize = document.querySelector('.ornamental-size');
+        this.ornamentalTop = document.querySelector('.ornamental-top');
         this.exportBtn = document.querySelector('.overlay-export');
 
         // bind this to this context
         this.posterStylingPojo = new PosterStylingPojo(2400, 1800, window.devicePixelRatio);
-       
+
         autoBind(this);
 
         // add event listeners
@@ -51,13 +52,13 @@ export default class PosterStyling {
         this.gradientColorPicker.addEventListener('change', this.setGradientColor, false);
         this.ornamentalPosition.addEventListener('input', this.setOrnamentalPosition, false);
         this.ornamentalSize.addEventListener('input', this.setOrnamentalSize, false);
+        this.ornamentalTop.addEventListener('input', this.setOrnamentalTop, false);
         this.locationDataInput.addEventListener('change', this.setLocationData, false);
     }
 
     static addListenerMulti(el, s, fn) {
         // console.log(s);
         const events = s.split(',');
-        console.log(events);
         events.forEach(e => el.addEventListener(e, fn, false));
     }
 
@@ -238,6 +239,14 @@ export default class PosterStyling {
         this.leftOrnament.set(this.pojoProxy.leftOrnament);
         this.rightOrnament.set(this.pojoProxy.rightOrnament);
     }
+    setOrnamentalTop(e) {
+        const { value } = e.target;
+        console.log(value);
+        this.pojoProxy.leftOrnament.top = parseInt(value, 10);
+        this.pojoProxy.rightOrnament.top = parseInt(value, 10);
+        this.leftOrnament.set(this.pojoProxy.leftOrnament);
+        this.rightOrnament.set(this.pojoProxy.rightOrnament);
+    }
 
     /**
      * Pass the event to set the style by name
@@ -250,7 +259,6 @@ export default class PosterStyling {
     }
 
     setOverlayStyle(style) {
-        console.log(style);
         this.setColor(style.textColor, 'text');
         this.setColor(style.ornamentalColor, 'ornament');
         this.setColor(style.gradientColor, 'gradient');
@@ -320,51 +328,47 @@ export default class PosterStyling {
         const target = {};
         const that = this;
         const handler = {
-            construct(target, args) {            
+            construct(target, args) {
                 return new target(...args);
             },
             get(target, key) {
-                if (typeof target[key] === 'object' && target[key] !== null) {
+                if (typeof target[key] === "object" && target[key] !== null) {
                     return new Proxy(target[key], handler);
                 }
                 return target[key];
             },
             set(target, key, value) {
-                console.log(`key ${key} value ${value}`);
-
                 switch (key) {
-                case 'text':
-                    target[key] = value.toUpperCase();
-                    break;
-                case 'fontSize':
-                case 'top':
-                    target[key] = parseInt(value) * Math.round(that.scale);
-                    break;
-                case 'width':
-                    target[key] = parseInt(value) * Math.round(that.scale);
-                    break;
-                case 'height':
-                    target[key] = value * that.scale;
-                    break;
-                default:
-                    target[key] = value;
-                    break;
+                    case "text":
+                        target[key] = value.toUpperCase();
+                        break;
+                    case "fontSize":
+                    case "top":
+                    case "width":
+                        target[key] = parseInt(value) * Math.round(that.scale);
+                        break;
+                    case "height":
+                        target[key] = value * that.scale;
+                        break;
+                    default:
+                        target[key] = value;
+                        break;
                 }
                 that.updateOverlay();
                 console.log(that.pojoProxy);
                 return true;
-            },
+            }
         };
         return new Proxy(this.posterStylingPojo, handler);
     }
 
     updateOverlay() {
-        Object.keys(this.pojoProxy).forEach((key) => {
+        Object.keys(this.pojoProxy).forEach(key => {
             if (key in this) {
                 this[key].set(this.pojoProxy[key]);
             }
         });
-        this.gradient.setGradient('fill', this.pojoProxy.gradientFill);
+        this.gradient.setGradient("fill", this.pojoProxy.gradientFill);
         this.oCanvas.requestRenderAll();
     }
 }
