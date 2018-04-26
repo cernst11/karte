@@ -64,3 +64,5 @@ key.pem
 js/keys.js
 
 *firebase*
+js/location.json
+js/earthquakes.geojson

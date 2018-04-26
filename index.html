@@ -1,134 +1,187 @@
 <!doctype html>
-
-
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    
     <title>Karte</title>
     <meta name="description" content="Karte">
     <meta name="author" content="cernst">
-    <meta name="theme-color" content="#9C27B0"/>
+    <meta name="theme-color" content="#9C27B0" />
     <meta name="viewport" content="width=device-width">
     <link rel="manifest" href="/manifest.json">
-    
 
 </head>
 
-<body>
-        <a href="https://github.com/cernst11/karte"><img style="position: absolute; top: 0; left: 0; border: 0; z-index:99999" 
-            src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" 
-            alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
-    <main>
-        <div class="wrapper">
-            <section class="preview">
-                <div class="mapArea">
-                    <div class="mapAreaCenter">
-                        <div class="poster">
-                            <div id="map-overlay" class="mapOverlayCenter map-overlay" style='width: 1800px; height: 2400px; ;'>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
 
-                                <div class="text-container">
-                                    <div class="text-filler">
-
-                                    </div>
-                                    <div class="text-overlay">
-                                        <div class="text-wrapper">
-                                            <span class="city-overlay">Berlin</span>
-                                            <span class="country-overlay">Germany</span>
-                                            <span class="coord-overlay">52.5200° N / 13.4050° E</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="map" class="map" style='width: 1800px; height: 2400px; ;'>
-                            </div>
-
-
-                        </div>
-                    </div>
-            </section>
-            <div class='configure'>
-
-                <div class="topnav">
-                    <a href="#home">Karte</a>
+<body class="hg">
+    <!--     <a href="https://github.com/cernst11/karte">
+        <img style="position: absolute; top: 0; left: 0; border: 0; z-index:99999" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67"
+            alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png">
+    </a> -->
+    <header class="header card-2">Karte</header>
+    <main class="main">
+        <div class="wrapper card-2">
+            <div id="map" class="map" style='width: 1800px; height: 2400px;'> </div>
+        </div>
+    </main>
+    <aside class="secondary card-2">
+        <div class="controls">
+            <div id="loc-input">
+                <div class="group">
+                    <input id="pac-input" type="text" placeholder="" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Enter a location</label>
                 </div>
-
-                <div class="controls">
-                    <div class="group">
-                        <input id="pac-input" type="text" placeholder="" required>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Enter a location</label>
-                    </div>
-<!--                     <div class="group">
+                <!--                     <div class="group">
                         <input id="dpi" type="number" placeholder="" value="300" required>
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>DPI</label>
                     </div> -->
-                    <div class="group">
-                        <input id="city" placeholder="" value="Berlin" required>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>City Name</label>
-                    </div>
-                    <div class="group">
-                            <input id="country" placeholder="" value="Germany" required>
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Country Name</label>
-                    </div>
-                    <div class="group">
-                            <input id="location" placeholder="" value="52.5200° N / 13.4050° E" required>
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label>Location Coordinates</label>
-                    </div>
-                    <p class="section-label">Export:</p>
 
-                    
-                    <div class="style-selector-container">
-                        <select class="export-select" name="export-select" >
-                            <option value="PNG">PNG</option>
-                            <option value="TIFF">TIFF</option>
-                        </select>
+                <div class="group">
+                    <input data-k-canvas-node="city" data-k-attr="text" data-k-events="change,input,keyup,paste" id="city" placeholder="" value="Berlin"
+                        required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>City Name</label>
+                    <div class="text-toggle hairline-border" data-toggle="city-text-style">Properties</div>
+                    <div class="text-style-container text-style-collapsed city-text-style hairline-border ">
+                        <div class="style-selector-container">
+                            <select data-k-canvas-node="city" data-k-attr="fontFamily" class="font-select" name="update-fonts">
+                                <option value="" selected>Select a Font</option>
+                                <option value="Montserrat">Montserrat</option>
+                                <option value="Fira Sans">Fira Sans</option>
+                                <option value="Lobster">Lobster</option>
+                                <option value="Gamja Flower">Gamja Flower</option>
+                                <option value="EB Garamond">Garamond</option>
+                            </select>
+                        </div>
+                        <span>Color:</span>
+                        <input aria-label="City Color Selection" data-k-canvas-node="city" data-k-attr="fill" type="color">
+                        <span>Font Size:</span>
+                        <input data-k-canvas-node="city" data-k-attr="fontSize" data-k-events="input" class="slider-input" min="10" max="250" type="range">
+                        <span>Vertical Position:</span>
+                        <input data-k-canvas-node="city" data-k-attr="top" data-k-events="input" class="slider-input" min="0" max="2400" type="range">
                     </div>
-            
+                </div>
+                <div class="group">
+                    <input data-k-canvas-node="country" data-k-attr="text" data-k-events="change,input,keyup,paste" id="country" placeholder=""
+                        value="Germany" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Country Name</label>
+                    <div class="text-toggle hairline-border" data-toggle="country-text-style">Properties</div>
+                    <div class="text-style-container text-style-collapsed country-text-style hairline-border ">
 
-                    <div class="export-buttons">
-                        <button class="map-export export-button " > Map</button>
-                        <button class="overlay-export export-button" > Overlay</button>
-                        <button class="export-button comp-image" > Composite</button>
+                        <div class="style-selector-container">
+                            <select data-k-canvas-node="country" data-k-attr="fontFamily" class="font-select" name="update-fonts">
+                                <option value="" selected>Select a Font</option>
+                                <option value="Montserrat">Montserrat</option>
+                                <option value="Fira Sans">Fira Sans</option>
+                                <option value="Lobster">Lobster</option>
+                                <option value="Gamja Flower">Gamja Flower</option>
+                                <option value="EB Garamond">Garamond</option>
+                            </select>
+                        </div>
+                        <span>Color:</span>
+                        <input aria-label="Country Color Selection" data-k-canvas-node="country" data-k-attr="fill" type="color">
+                        <span>Font Size:</span>
+                        <input data-k-canvas-node="country" data-k-attr="fontSize" data-k-events="input" class="slider-input" min="10" max="250"
+                            type="range">
+                        <span>Vertical Position:</span>
+                        <input data-k-canvas-node="country" data-k-attr="top" data-k-events="input" class="slider-input" min="0" max="2400" type="range">
                     </div>
+                </div>
+                <div class="group">
 
-
-                    
-
-                    <h1 class="section-label">Styling:</h1> 
-                    <div class="style-selector-container">
-                        <!-- <button class="export-button change-style" >Change Style</button> -->
-                        <select class="style-select" name="style-select">
-                        </select>
-                    </div>
-
-                    <div class="overlay-controls">
-<!--                         <div class="style-subsection-header"><span>Text Styling: </span></div> -->
-                        <div class="color-picker-section"><span>Text Color: </span><input class="text-color-picker" type="color"></div>
-                 <!--        <div class="style-subsection-header"><span>Gradient Styling: </span></div>      -->                  
-                        <div class="color-picker-section"><span>Gradient Color: </span><input class="gradient-color-picker" type="color"></div>
-<!--                         <div class="style-subsection-header"><span>Ornamental Styling: </span></div> -->
-                        <div class="color-picker-section"><span>Ornamental Color: </span><input class="ornamental-color-picker" type="color"></div>
-                        <div class="color-picker-section"><span>Position:</span><input class="ornamental-position slider-input" min="100" max="120" type="range"></div>
-                        <div class="color-picker-section"><span>Width:</span><input class="ornamental-size  slider-input" min="0.1" max="4.0" type="range"></div>
+                    <input data-k-canvas-node="location" data-k-attr="text" data-k-events="change,input,keyup,paste" id="location" placeholder=""
+                        value="52.5200° N / 13.4050° E" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Location Coordinates</label>
+                    <div class="text-toggle hairline-border" data-toggle="location-text-style">Properties</div>
+                    <div class="text-style-container text-style-collapsed location-text-style hairline-border ">
+                        <div class="style-selector-container">
+                            <select data-k-canvas-node="location" data-k-attr="fontFamily" class="font-select" name="update-fonts">
+                                <option value="Montserrat">Montserrat</option>
+                                <option value="Fira Sans">Fira Sans</option>
+                                <option value="Lobster">Lobster</option>
+                                <option value="Gamja Flower">Gamja Flower</option>
+                                <option value="EB Garamond">Garamond</option>
+                            </select>
+                        </div>
+                        <span>Color:</span>
+                        <input aria-label="Location Color Selection" data-k-canvas-node="location" data-k-attr="fill" type="color">
+                        <span>Font Size:</span>
+                        <input data-k-canvas-node="location" data-k-attr="fontSize" data-k-events="input" class="slider-input" min="10" max="250"
+                            type="range">
+                        <span>Vertical Position:</span>
+                        <input data-k-canvas-node="city" data-k-attr="top" data-k-events="input" class="slider-input" min="0" max="2400" type="range">
                     </div>
                 </div>
             </div>
+
+            <div id="style-controls">
+                <span class="section-label">Export:</span>
+                <div class="style-selector-container">
+                    <select class="export-select" name="export-select">
+                        <option value="PNG">PNG</option>
+                        <option value="TIFF">TIFF</option>
+                    </select>
+                </div>
+
+                <div class="export-buttons">
+                    <button class="map-export export-button "> Map</button>
+                    <button class="overlay-export export-button"> Overlay</button>
+                    <button class="export-button comp-image"> Composite</button>
+                </div>
+
+                <span class="section-label">Styling:</span>
+                <div class="style-selector-container">
+                    <!-- <button class="export-button change-style" >Change Style</button> -->
+                    <select class="style-select" name="style-select">
+                    </select>
+                </div>
+
+                <div class="overlay-controls">
+                    <!--                         <div class="style-subsection-header"><span>Text Styling: </span></div> -->
+                    <!--        <div class="style-subsection-header"><span>Gradient Styling: </span></div>      -->
+                    <div class="color-picker-section">
+                        <span>Gradient Color: </span>
+                        <input class="gradient-color-picker" type="color">
+                    </div>
+                    <!--                         <div class="style-subsection-header"><span>Ornamental Styling: </span></div> -->
+                    <div class="color-picker-section">
+                        <span>Ornamental Color: </span>
+                        <input class="ornamental-color-picker" type="color">
+                    </div>
+                    <div class="color-picker-section">
+                        <span>Position:</span>
+                        <input class="ornamental-position slider-input" min="0" max="1200" type="range">
+                    </div>
+                    <div class="color-picker-section">
+                        <span>Width:</span>
+                        <input data-k-canvas-node="leftOrnament,rightOrnament" data-k-attr="width" class="ornamental-size  slider-input" min="0"
+                            max="250" type="range">
+                    </div>
+                    <div style="display: none">
+                        <input hidden id="data-file" class="data-file" type="file" />
+                        <input data-k-canvas-node="leftOrnament,rightOrnament" data-k-attr="width" class="ornamental-size  slider-input" min="0"
+                            max="250" type="range">
+                    </div>
+                </div>
             </div>
-    </main>
+        </div>
+
+    </aside>
+
+
     <!--<img id="map-image" src="" style='width: 1800px; height: 2400px'> </img>-->
 </body>
 
-<link href='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.css' rel='stylesheet' />
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+
 </html>
