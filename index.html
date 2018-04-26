@@ -42,7 +42,7 @@
                     </div> -->
 
                 <div class="group">
-                    <input data-k-canvas-node="city" data-k-attr="text" data-k-events="change,input,keyup,paste" id="city" placeholder="" value="Berlin"
+                    <input data-k-canvas-node="city" data-k-attr="text" data-k-events="change,input,keyup,paste,keydown" id="city" placeholder="" value="Berlin"
                         required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="group">
-                    <input data-k-canvas-node="country" data-k-attr="text" data-k-events="change,input,keyup,paste" id="country" placeholder=""
+                    <input data-k-canvas-node="country" data-k-attr="text" data-k-events="change,input,keyup,paste,keydown" id="country" placeholder=""
                         value="Germany" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="group">
 
-                    <input data-k-canvas-node="location" data-k-attr="text" data-k-events="change,input,keyup,paste" id="location" placeholder=""
+                    <input data-k-canvas-node="location" data-k-attr="text" data-k-events="change,input,keyup,paste,keydown" id="location" placeholder=""
                         value="52.5200° N / 13.4050° E" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
@@ -167,9 +167,14 @@
                         <input data-k-canvas-node="leftOrnament,rightOrnament" data-k-attr="width" class="ornamental-size  slider-input" min="0"
                             max="250" type="range">
                     </div>
+                    <div class="color-picker-section">
+                        <span>Top:</span>
+                        <input  data-k-attr="top" class="ornamental-top  slider-input" min="0"
+                            max="2400" type="range">
+                    </div>
                     <div style="display: none">
                         <input hidden id="data-file" class="data-file" type="file" />
-                        <input data-k-canvas-node="leftOrnament,rightOrnament" data-k-attr="width" class="ornamental-size  slider-input" min="0"
+                        <input data-k-canvas-node="leftOrnament,rightOrnament" data-k-attr="width" class="ornamental-top  slider-input" min="0"
                             max="250" type="range">
                     </div>
                 </div>
