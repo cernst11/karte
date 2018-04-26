@@ -1,0 +1,206 @@
+/*CSS vars*/
+
+:root {
+	--primary-color: #9c27b0;
+	--dark-primary-color: #7b1fa2;
+	--accent-color: #00bcd4;
+	--map-hieght: 2400px;
+	--cont-div-width: 450px;
+	--cont-div-height: 600px;
+	--map-width: 1800px;
+	--scale-ratio: 0.25;
+}
+
+html {
+	font-family: Roboto;
+	font-size: 16px;
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+body {
+	font-size: 1rem;
+	min-height: 100vh;
+	display: grid;
+	grid-template-rows: 3em 1fr auto;
+	grid-template-areas: "header" "main" "secondary";
+	margin: 0;
+}
+
+/* Controls layout and design*/
+
+.section-label {
+	padding-top: 25px;
+	font-family: Roboto;
+}
+
+.style-subsection-header span {
+	font-size: 15px;
+}
+
+.section-label {
+	padding-top: 25px;
+	font-family: Roboto;
+}
+
+.overlay-controls {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.overlay-controls div {
+	padding-bottom: 10px;
+}
+
+.overlay-controls span {
+	padding-right: 5px;
+}
+
+.controls {
+	display: flex;
+	flex-direction: column;
+}
+
+/*Map*/
+
+.map {
+	position: relative;
+}
+
+.mapboxgl-canvas-container {
+	display: flex;
+	transform: translateX( calc((var(--map-width) - var(--cont-div-width)) / 2 * -1)) scale(var(--scale-ratio));
+}
+
+.wrapper {
+	margin: 2em 0em;
+	background-color: #00bcd4;
+	max-width: var(--cont-div-width);
+	max-height: var(--cont-div-height);
+	overflow: hidden;
+}
+
+/*General layout*/
+
+/* grid */
+
+.header,
+.main,
+.secondary,
+.header {
+	background-color: var(--primary-color);
+}
+
+.main {
+	background-color: #f0f0f0;
+}
+
+.secondary {
+	background-color: white;
+}
+
+@media only screen and (min-width: 960px) {
+	body {
+		grid-template-columns: 1fr auto 25em;
+		grid-template-rows: 3em 1fr auto;
+		grid-template-areas: "main main header" "main main secondary";
+	}
+}
+
+@media only screen and (max-width: 959px) {
+	.secondary {
+		padding-top: 25px;
+		grid-area: secondary;
+		display: flex;
+	}
+	.controls {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+		flex-wrap: wrap;
+	}
+	#loc-input {
+		padding-right: 50px;
+	}
+}
+
+.header {
+	grid-area: header;
+	color: #f2f2f2;
+	padding: 8px 16px;
+	font-size: 24px;
+}
+
+.main {
+	grid-area: main;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.secondary {
+	padding-top: 30px;
+	grid-area: secondary;
+	display: flex;
+	justify-content: center;
+}
+
+/**/
+
+#overlay-canvas,
+#overlay-grad-canvas {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	z-index: 10;
+	height: 2400px;
+	width: 1800px;
+}
+
+.canvas-container {
+	position: absolute !important;
+}
+
+.card-1 {
+	box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+}
+
+.card-2 {
+	box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
+}
+
+.card-3 {
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.23), 0 10px 40px rgba(0, 0, 0, 0.19);
+}
+
+.card-4 {
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22), 0 14px 56px rgba(0, 0, 0, 0.25);
+}
+
+.card-5 {
+	box-shadow: 0 15px 24px rgba(0, 0, 0, 0.22), 0 19px 76px rgba(0, 0, 0, 0.3);
+}
+
+#overlay {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	z-index: 1000000;
+	background: rgba(0, 0, 0, 0.38);
+}
+
+#overlay-canvas {
+	width: 1800px !important;
+	height: 2400px !important;
+}
+
+input.vertical {
+	transform: rotate(90deg);
+}
+

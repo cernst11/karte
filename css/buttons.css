@@ -1,0 +1,30 @@
+* Change the color of links on hover */
+
+.topnav a:hover {
+    background-color: var(--accent-color);
+    color: black;
+}
+
+.export-buttons {
+    display: flex;
+    flex-direction: row;
+    margin-bottom:10px;
+    justify-content: center;
+    width: 90%;
+}
+
+.export-button {
+    background-color: var(--accent-color);
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width:100%;
+    
+}
+

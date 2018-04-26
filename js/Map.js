@@ -1,53 +1,53 @@
 import mapboxgl from 'mapbox-gl';
-//import earthQuakes from './location.json';
+// import earthQuakes from './location.json';
 
 /**
  * Create map and control its properties
  */
 export default class Map {
-
     constructor(mapBoxKey) {
-        //set mapBox api key
+        // set mapBox api key
         this.mapBoxKey = mapBoxKey;
         this.style = 'mapbox://styles/cernst11/cj28e31au00072tpeqo01n9gf';
-        this.html = document.getElementsByTagName('html')[0];
-
-
-        //this.setStyle = this.setStyle.bind(this);
-        //create the style selectors and build the map
+        this.html = document.querySelector('html');
+        // this.setStyle = this.setStyle.bind(this);
+        // create the style selectors and build the map
         this.buildMap();
-        //this.getMapData();
+        // this.getMapData();
     }
 
-    async getMapData() {
+    static async getMapData() {
+        const earthQuakes = null;
         let response = await fetch(earthQuakes);
         // only proceed once promise is resolved
         let data = await response.json();
         // only proceed once second promise is resolved
-        let locations = []
+        const locations = [];
         let i = 0;
-        data.locations.forEach(location => {
-            let loc = {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [location.longitudeE7 * (10 ** -7), location.latitudeE7 * (10 ** -7), 0.0]
+        data.locations.forEach((location) => {
+            const loc = {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [location.longitudeE7 * (10 ** -7), location.latitudeE7 * (10 ** -7), 0.0],
                 },
-                "properties": {
-                    "time": location.timestampMs,
-                }
+                properties: {
+                    time: location.timestampMs,
+                },
+            };
+
+            if (i % 2 === 0) {
+                locations.push(loc);
             }
 
-            i%2 == 0 ?  locations.push(loc) : '';
-            i++;
-            //console.log(loc)
+            i += 1;
+            // console.log(loc)
         });
-        console.log("I'm Done!!!!!!!!!!!!!!")
         data = {};
         response = {};
-        let x = {
-            "type": "FeatureCollection",
-            'features': locations
+        const x = {
+            type: 'FeatureCollection',
+            features: locations,
         };
         return x;
     }
@@ -55,18 +55,18 @@ export default class Map {
 
     async buildMap() {
         mapboxgl.accessToken = this.mapBoxKey;
-        let map = new mapboxgl.Map({
+        const map = new mapboxgl.Map({
             container: 'map',
             center: [13.404953999999975, 52.52000659999999],
             style: this.style,
             zoom: 13,
-            preserveDrawingBuffer: true
+            preserveDrawingBuffer: true,
         });
         this.map = map;
 
         map.addControl(new mapboxgl.NavigationControl());
 
-/*         let that = this;
+        /*         let that = this;
         map.on('load', async  () => {
             //Add a geojson point source.
             //Heatmap layers also work with a vector tile source.
@@ -117,13 +117,8 @@ export default class Map {
                 }
             }, 'waterway-label');
         }); */
-
-
     }
 
-    createLayer() {
-
-
+    static createLayer() {
     }
-
 }
